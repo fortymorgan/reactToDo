@@ -53,6 +53,13 @@ export default class App extends React.Component {
     this.setState({ filter: e.target.innerHTML });
   }
 
+  onClearFinished = () => {
+    const { items } = this.state;
+    const newItems = items.filter(item => item.state !== 'finished');
+    toLocalStorage('todo-list', newItems);
+    this.setState({ items: newItems });
+  }
+
   render() {
     const { input, items, filter } = this.state;
 
@@ -66,7 +73,7 @@ export default class App extends React.Component {
       <div className="jumbotron">
         <InputForm handlers={{ onInput: this.onInput, onAdd: this.onAdd, onToggleAll: this.onToggleAll }} value={input} />
         <ListItems handlers={{ onRemove: this.onRemove, onToggle: this.onToggle }} list={itemsToRender[filter]} />
-        <FilterFooter filter={filter} list={items} handlers={{ onToggleFilter: this.onToggleFilter }} />
+        <FilterFooter filter={filter} list={items} handlers={{ onToggleFilter: this.onToggleFilter, onClearFinished: this.onClearFinished }} />
       </div>
     )
   }
