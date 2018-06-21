@@ -1,6 +1,7 @@
 import React from 'react';
 import InputForm from './InputForm.jsx';
 import ListItems from './ListItems.jsx';
+import FilterFooter from './FilterFooter.jsx'
 import { getItemsList, toLocalStorage } from '../scripts/storage';
 
 export default class App extends React.Component {
@@ -10,6 +11,7 @@ export default class App extends React.Component {
       nextId: 0,
       input: '',
       items: getItemsList(),
+      filter: 'all',
     }
   }
 
@@ -47,14 +49,26 @@ export default class App extends React.Component {
     this.setState({ items: newItems });
   }
 
+  onToggleFilter = (e) => {
+    this.setState({ filter: e.target.innerHTML });
+  }
+
   render() {
-    const { input, items } = this.state;
+    const { input, items, filter } = this.state;
+
+    const itemsToRender = {
+      all: items,
+      active: items.filter(item => item.state === 'active'),
+      finished: items.filter(item => item.state === 'finished'),
+    }
+    
+    const footer = items.length === 0 ? null : <FilterFooter filter={filter} handlers={{onToggleFilter: this.onToggleFilter }} />
 
     return (
       <div className="jumbotron">
         <InputForm handlers={{ onInput: this.onInput, onAdd: this.onAdd, onToggleAll: this.onToggleAll }} value={input} />
-        <hr className="my-4" />
-        <ListItems handlers={{ onRemove: this.onRemove, onToggle: this.onToggle }} list={items} />
+        <ListItems handlers={{ onRemove: this.onRemove, onToggle: this.onToggle }} list={itemsToRender[filter]} />
+        {footer}
       </div>
     )
   }
