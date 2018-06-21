@@ -40,12 +40,19 @@ export default class App extends React.Component {
     this.setState({ items: newItems });
   }
 
+  onToggleAll = () => {
+    const { items } = this.state;
+    const newItems = items.map(item => ({ ...item, state: item.state === 'active' ? 'finished' : 'active' }));
+    toLocalStorage('todo-list', newItems);
+    this.setState({ items: newItems });
+  }
+
   render() {
     const { input, items } = this.state;
 
     return (
       <div className="jumbotron">
-        <InputForm handlers={{ onInput: this.onInput, onAdd: this.onAdd }} value={input} />
+        <InputForm handlers={{ onInput: this.onInput, onAdd: this.onAdd, onToggleAll: this.onToggleAll }} value={input} />
         <hr className="my-4" />
         <ListItems handlers={{ onRemove: this.onRemove, onToggle: this.onToggle }} list={items} />
       </div>
