@@ -44,7 +44,8 @@ export default class App extends React.Component {
 
   onToggleAll = () => {
     const { items } = this.state;
-    const newItems = items.map(item => ({ ...item, state: item.state === 'active' ? 'finished' : 'active' }));
+    const toggledState = items.every(item => item.state === 'finished') ? 'active' : 'finished';
+    const newItems = items.map(item => ({ ...item, state: toggledState }));
     toLocalStorage('todo-list', newItems);
     this.setState({ items: newItems });
   }
