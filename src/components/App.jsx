@@ -22,7 +22,7 @@ export default class App extends React.Component {
   onAdd = (e) => {
     e.preventDefault();
     const { input, items, nextId } = this.state;
-    const newItems = [...items, { id: nextId, text: input, state: 'active' }];
+    const newItems = [...items, { id: nextId, text: input, state: 'active', editing: false }];
     toLocalStorage('todo-list', newItems);
     this.setState({ input: '', items: newItems, nextId: nextId + 1 });
   }
@@ -61,6 +61,26 @@ export default class App extends React.Component {
     this.setState({ items: newItems });
   }
 
+  onStartEdit = (id) => () => {
+    const { items } = this.state;
+    const newItems = items.map(item => ({ ...item, editing: item.id === id }));
+    this.setState({ items: newItems });
+  }
+
+  onEdit = (id) => (e) => {
+    const { items } = this.state;
+    const newItems = items.map(item => (item.id === id ? { ...item, text: e.target.value } : item));
+    this.setState({ items: newItems });
+  }
+
+  onEndEdit = (e) => {
+    e.preventDefault();
+    const { items } = this.state;
+    const newItems = items.map(item => ({ ...item, editing: false }));
+    toLocalStorage('todo-list', newItems);
+    this.setState({ items: newItems });
+  }
+
   render() {
     const { input, items, filter } = this.state;
 
@@ -73,7 +93,7 @@ export default class App extends React.Component {
     return (
       <div className="jumbotron">
         <InputForm handlers={{ onInput: this.onInput, onAdd: this.onAdd, onToggleAll: this.onToggleAll }} value={input} />
-        <ListItems handlers={{ onRemove: this.onRemove, onToggle: this.onToggle }} list={itemsToRender[filter]} />
+        <ListItems handlers={{ onRemove: this.onRemove, onToggle: this.onToggle, onStartEdit: this.onStartEdit, onEdit: this.onEdit, onEndEdit: this.onEndEdit }} list={itemsToRender[filter]} />
         <FilterFooter filter={filter} list={items} handlers={{ onToggleFilter: this.onToggleFilter, onClearFinished: this.onClearFinished }} />
       </div>
     )
