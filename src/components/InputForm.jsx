@@ -6,7 +6,7 @@ export default class InputForm extends React.Component {
     const { onInput, onAdd, onToggleAll } = handlers;
 
     return (
-      <form className="form-inline" onSubmit={onAdd}>
+      <form className="form-inline mb-3" onSubmit={onAdd}>
         <button type="button" className="btn btn-sm border-0 mr-1" onClick={onToggleAll}>Toggle all</button>
         <div className="input-group mx-sm-3">
           <div className="input-group-prepend">
