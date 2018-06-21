@@ -1,4 +1,5 @@
 import React from 'react';
+import cn from 'classnames';
 
 const ListItem = (props) => {
   const { item, handlers } = props;
@@ -7,15 +8,23 @@ const ListItem = (props) => {
 
   const textElement = item.editing ?
     <form className="form-inline" onSubmit={onEndEdit}>
-      <input type="text" className="form-control" autoFocus value={text} onChange={onEdit(id)} onBlur={onEndEdit} />
+      <input type="text" className="border-0 pl-1" autoFocus value={text} onChange={onEdit(id)} onBlur={onEndEdit} />
     </form> :
-    <div className="mr-auto" onDoubleClick={onStartEdit(id)}>{state === 'finished' ? <s>{text}</s> : text}</div>
+    <div className="ml-1" onDoubleClick={onStartEdit(id)}>{state === 'finished' ? <s>{text}</s> : text}</div>
+
+  const toggleButtonClassName = cn({
+    btn: true,
+    'border-0': true,
+    'btn-sm': true,
+    'mr-2': true,
+    'btn-secondary': item.state === 'finished',
+  });
 
   return (
-    <li className="list-group-item d-flex justify-content-end">
-      <button className="btn border-0 btn-sm mr-3" onClick={onToggle(id)}>-</button>
+    <li className="list-group-item d-flex justify-content-start">
+      <button className={toggleButtonClassName} onClick={onToggle(id)}>-</button>
       {textElement}
-      <button className="btn border-0 btn-sm" onClick={onRemove(id)}>x</button>
+      <button className="btn border-0 btn-danger btn-sm ml-auto" onClick={onRemove(id)}>x</button>
     </li>
   )
 }

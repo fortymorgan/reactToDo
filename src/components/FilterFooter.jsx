@@ -1,4 +1,5 @@
 import React from 'react';
+import cn from 'classnames';
 
 const filters = ['all', 'active', 'finished'];
 
@@ -15,7 +16,11 @@ export default class FilterFooter extends React.Component {
       <div className="mt-3 d-flex justify-content-around">
         <span>{`${list.filter(item => item.state === 'active').length} items left`}</span>
         {filters.map(f => {
-          const className = f === filter ? "btn btn-secondary btn-sm" : "btn btn-sm";
+          const className = cn({
+            btn: true,
+            'btn-sm': true,
+            'btn-secondary': f === filter,
+          });
           return <button className={className} key={f} onClick={onToggleFilter}>{f}</button>;
           })}
         <button className="btn btn-primary btn-sm" onClick={onClearFinished}>Clear finished</button>

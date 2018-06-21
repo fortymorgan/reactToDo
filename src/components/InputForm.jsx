@@ -1,13 +1,22 @@
 import React from 'react';
+import cn from 'classnames';
 
 export default class InputForm extends React.Component {
   render() {
-    const { value, handlers } = this.props;
+    const { value, handlers, list } = this.props;
     const { onInput, onAdd, onToggleAll } = handlers;
+
+    const toggleAllButtonClassName = cn({
+      btn: true,
+      'btn-sm': true,
+      'border-0': true,
+      'mr-1': true,
+      'btn-secondary': list.every(item => item.state === 'finished'),
+    })
 
     return (
       <form className="form-inline mb-3" onSubmit={onAdd}>
-        <button type="button" className="btn btn-sm border-0 mr-1" onClick={onToggleAll}>Toggle all</button>
+        <button type="button" className={toggleAllButtonClassName} onClick={onToggleAll}>Toggle all</button>
         <div className="input-group mx-sm-3">
           <div className="input-group-prepend">
             <span className="input-group-text" id="basic-addon1">New task</span>
