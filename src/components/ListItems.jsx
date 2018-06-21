@@ -18,6 +18,10 @@ export default class ListItems extends React.Component {
   render() {
     const { list, handlers } = this.props;
 
+    if (list.length === 0) {
+      return null;
+    }
+
     return (
       <ul className="list-group">
         {list.map(item => <ListItem item={item} key={item.id} handlers={handlers} />)}
