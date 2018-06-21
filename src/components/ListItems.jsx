@@ -7,9 +7,9 @@ const ListItem = (props) => {
 
   return (
     <li className="list-group-item d-flex justify-content-end">
-      <button className="btn border-0 p-0 app-toggle-state mr-3" onClick={onToggle(id)}>-</button>
+      <button className="btn border-0 btn-sm mr-3" onClick={onToggle(id)}>-</button>
       <div className="mr-auto">{state === 'finished' ? <s>{text}</s> : text}</div>
-      <button className="btn border-0 p-0 app-remove-task" onClick={onRemove(id)}>x</button>
+      <button className="btn border-0 btn-sm" onClick={onRemove(id)}>x</button>
     </li>
   )
 }
