@@ -1,14 +1,15 @@
 import React from 'react';
-import _ from 'lodash';
 import InputForm from './InputForm.jsx';
 import ListItems from './ListItems.jsx';
+import { getItemsList, toLocalStorage } from '../scripts/storage';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      nextId: 0,
       input: '',
-      items: [],
+      items: getItemsList(),
     }
   }
 
@@ -18,19 +19,25 @@ export default class App extends React.Component {
 
   onAdd = (e) => {
     e.preventDefault();
-    const { input, items } = this.state;
-    this.setState({ input: '', items: [...items, { id: _.uniqueId(), text: input, state: 'active' }] })
+    const { input, items, nextId } = this.state;
+    const newItems = [...items, { id: nextId, text: input, state: 'active' }];
+    toLocalStorage('todo-list', newItems);
+    this.setState({ input: '', items: newItems, nextId: nextId + 1 });
   }
 
   onRemove = (id) => () => {
     const { items } = this.state;
-    this.setState({ items: items.filter(item => item.id !== id) })
+    const newItems = items.filter(item => item.id !== id);
+    toLocalStorage('todo-list', newItems);
+    this.setState({ items: newItems });
   }
 
   onToggle = (id) => () => {
     const { items } = this.state;
-    this.setState({ items: items.map(item => item.id !== id ? item :
-      { ...item, state: item.state === 'active' ? 'finished' : 'active' }) });
+    const newItems = items.map(item => item.id !== id ? item :
+      { ...item, state: item.state === 'active' ? 'finished' : 'active' });
+    toLocalStorage('todo-list', newItems);
+    this.setState({ items: newItems });
   }
 
   render() {
@@ -43,5 +50,14 @@ export default class App extends React.Component {
         <ListItems handlers={{ onRemove: this.onRemove, onToggle: this.onToggle }} list={items} />
       </div>
     )
+  }
+
+  componentDidMount = () => {
+    const { items } = this.state;
+
+    if (items.length > 0) {
+      const nextId = +items[items.length - 1].id + 1;
+      this.setState({ nextId })
+    }
   }
 }
