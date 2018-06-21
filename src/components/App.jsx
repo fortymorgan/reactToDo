@@ -61,14 +61,12 @@ export default class App extends React.Component {
       active: items.filter(item => item.state === 'active'),
       finished: items.filter(item => item.state === 'finished'),
     }
-    
-    const footer = items.length === 0 ? null : <FilterFooter filter={filter} handlers={{onToggleFilter: this.onToggleFilter }} />
 
     return (
       <div className="jumbotron">
         <InputForm handlers={{ onInput: this.onInput, onAdd: this.onAdd, onToggleAll: this.onToggleAll }} value={input} />
         <ListItems handlers={{ onRemove: this.onRemove, onToggle: this.onToggle }} list={itemsToRender[filter]} />
-        {footer}
+        <FilterFooter filter={filter} list={items} handlers={{ onToggleFilter: this.onToggleFilter }} />
       </div>
     )
   }

@@ -4,8 +4,12 @@ const filters = ['all', 'active', 'finished'];
 
 export default class FilterFooter extends React.Component {
   render() {
-    const { filter, handlers } = this.props;
+    const { filter, handlers, list } = this.props;
     const { onToggleFilter } = handlers;
+
+    if (list.length === 0) {
+      return null;
+    }
 
     return (
       <div className="col-8 mt-3 d-flex justify-content-around">
