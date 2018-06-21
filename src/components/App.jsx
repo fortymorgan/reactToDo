@@ -39,6 +39,7 @@ export default class App extends React.Component {
     return (
       <div className="jumbotron">
         <InputForm handlers={{ onInput: this.onInput, onAdd: this.onAdd }} value={input} />
+        <hr className="my-4" />
         <ListItems handlers={{ onRemove: this.onRemove, onToggle: this.onToggle }} list={items} />
       </div>
     )
