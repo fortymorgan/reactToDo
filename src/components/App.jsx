@@ -92,7 +92,7 @@ export default class App extends React.Component {
       finished: items.filter(item => item.state === 'finished'),
     }
 
-    const isAllItemsFinished = items.every(item => item.state === 'finished');
+    const isAllItemsFinished = items.length !== 0 && items.every(item => item.state === 'finished');
     const activeItemsCount = items.filter(item => item.state === 'active').length;
     const isListEmpty = items.length === 0;
 
