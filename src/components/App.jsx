@@ -2,8 +2,8 @@ import React from 'react';
 import Header from './Header.jsx';
 import ListItems from './ListItems.jsx';
 import Footer from './Footer.jsx'
-import { getItemsList, toLocalStorage } from '../scripts/storage';
-import getNextId from '../scripts/getNextId';
+import { getItemsList, toLocalStorage } from '../storage';
+import getNextId from '../getNextId';
 
 export default class App extends React.Component {
   constructor(props) {
