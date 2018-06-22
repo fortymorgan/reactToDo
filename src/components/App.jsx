@@ -3,15 +3,17 @@ import Header from './Header.jsx';
 import ListItems from './ListItems.jsx';
 import Footer from './Footer.jsx'
 import { getItemsList, toLocalStorage } from '../scripts/storage';
+import getNextId from '../scripts/getNextId';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
+    const itemsList = getItemsList();
     this.state = {
-      nextId: 0,
       input: '',
-      items: getItemsList(),
+      items: itemsList,
       filter: 'all',
+      nextId: getNextId(itemsList),
     }
   }
 
@@ -101,14 +103,5 @@ export default class App extends React.Component {
         <Footer filter={filter} activeItemsCount={activeItemsCount} isListEmpty={isListEmpty} handlers={{ onToggleFilter: this.onToggleFilter, onClearFinished: this.onClearFinished }} />
       </div>
     )
-  }
-
-  componentDidMount = () => {
-    const { items } = this.state;
-
-    if (items.length > 0) {
-      const nextId = +items[items.length - 1].id + 1;
-      this.setState({ nextId })
-    }
   }
 }
