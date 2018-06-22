@@ -1,7 +1,7 @@
 import React from 'react';
 import InputForm from './InputForm.jsx';
 import ListItems from './ListItems.jsx';
-import Footer from './FilterFooter.jsx'
+import Footer from './Footer.jsx'
 import { getItemsList, toLocalStorage } from '../scripts/storage';
 
 export default class App extends React.Component {
