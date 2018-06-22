@@ -18,7 +18,7 @@ const InputForm = (props) => {
 }
 
 const Header = (props) => {
-  const { value, handlers, list } = props;
+  const { value, handlers, isAllItemsFinished } = props;
   const { onInput, onAdd, onToggleAll } = handlers;
 
   const toggleAllButtonClassName = cn({
@@ -26,11 +26,11 @@ const Header = (props) => {
     'btn-sm': true,
     'border-0': true,
     'mr-1': true,
-    'btn-secondary': list.every(item => item.state === 'finished'),
+    'btn-secondary': isAllItemsFinished,
   });
 
   return (
-    <div className="mb-3 d-flex justify-content-between">
+    <div className="mb-3 d-flex justify-content-start">
       <button type="button" className={toggleAllButtonClassName} onClick={onToggleAll}>Toggle all</button>
       <InputForm onInput={onInput} onAdd={onAdd} value={value} />
     </div>

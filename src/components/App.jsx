@@ -90,11 +90,15 @@ export default class App extends React.Component {
       finished: items.filter(item => item.state === 'finished'),
     }
 
+    const isAllItemsFinished = items.every(item => item.state === 'finished');
+    const activeItemsCount = items.filter(item => item.state === 'active').length;
+    const isListEmpty = items.length === 0;
+
     return (
       <div className="jumbotron">
-        <Header handlers={{ onInput: this.onInput, onAdd: this.onAdd, onToggleAll: this.onToggleAll }} value={input} list={items} />
+        <Header handlers={{ onInput: this.onInput, onAdd: this.onAdd, onToggleAll: this.onToggleAll }} value={input} list={items} isAllItemsFinished={isAllItemsFinished} />
         <ListItems handlers={{ onRemove: this.onRemove, onToggle: this.onToggle, onStartEdit: this.onStartEdit, onEdit: this.onEdit, onEndEdit: this.onEndEdit }} list={itemsToRender[filter]} />
-        <Footer filter={filter} list={items} handlers={{ onToggleFilter: this.onToggleFilter, onClearFinished: this.onClearFinished }} />
+        <Footer filter={filter} activeItemsCount={activeItemsCount} isListEmpty={isListEmpty} handlers={{ onToggleFilter: this.onToggleFilter, onClearFinished: this.onClearFinished }} />
       </div>
     )
   }

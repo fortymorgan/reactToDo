@@ -16,16 +16,16 @@ const Filters = (props) => {
 }
 
 const Footer = (props) => {
-  const { filter, handlers, list } = props;
+  const { filter, handlers, isListEmpty, activeItemsCount } = props;
   const { onToggleFilter, onClearFinished } = handlers;
 
-  if (list.length === 0) {
+  if (isListEmpty) {
     return null;
   }
 
   return (
     <div className="mt-3 d-flex justify-content-around">
-      <span>{`${list.filter(item => item.state === 'active').length} items left`}</span>
+      <span>{`${activeItemsCount} items left`}</span>
       <Filters filter={filter} onToggleFilter={onToggleFilter} />
       <button className="btn btn-primary btn-sm" onClick={onClearFinished}>Clear finished</button>
     </div>
