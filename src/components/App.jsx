@@ -1,8 +1,8 @@
 import React from 'react';
-import InputForm from './InputForm.jsx';
 import ListItems from './ListItems.jsx';
 import Footer from './Footer.jsx'
 import { getItemsList, toLocalStorage } from '../scripts/storage';
+import Header from './InputForm.jsx';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -92,7 +92,7 @@ export default class App extends React.Component {
 
     return (
       <div className="jumbotron">
-        <InputForm handlers={{ onInput: this.onInput, onAdd: this.onAdd, onToggleAll: this.onToggleAll }} value={input} list={items} />
+        <Header handlers={{ onInput: this.onInput, onAdd: this.onAdd, onToggleAll: this.onToggleAll }} value={input} list={items} />
         <ListItems handlers={{ onRemove: this.onRemove, onToggle: this.onToggle, onStartEdit: this.onStartEdit, onEdit: this.onEdit, onEndEdit: this.onEndEdit }} list={itemsToRender[filter]} />
         <Footer filter={filter} list={items} handlers={{ onToggleFilter: this.onToggleFilter, onClearFinished: this.onClearFinished }} />
       </div>
