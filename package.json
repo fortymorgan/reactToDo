@@ -7,7 +7,11 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "webpack": "webpack"
   },
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fortymorgan/reactToDo.git"
+  },
+  "author": "Dmitriy Zhmudikov",
   "license": "ISC",
   "dependencies": {
     "bootstrap": "^4.1.1",
