@@ -1,40 +1,30 @@
 import React from 'react';
 import cn from 'classnames';
+import InputFormContainer from '../containers/InputForm';
 
-const InputForm = (props) => {
-  const { value, onInput, onAdd } = props;
+export default class Header extends React.Component {
+  onToggleAll = () => {
+    const { toggleAllTaskState } = this.props;
+    toggleAllTaskState();
+  }
 
-  return (
-    <form className="form-inline" onSubmit={onAdd}>
-      <div className="input-group mx-sm-3">
-        <div className="input-group-prepend">
-          <span className="input-group-text" id="basic-addon1">New task</span>
+  render() {
+    const { isAllItemsFinished } = this.props;
+
+    const toggleAllButtonClassName = cn({
+      btn: true,
+      'btn-sm': true,
+      'border-0': true,
+      'btn-secondary': isAllItemsFinished,
+    });
+  
+    return(
+      <div className="mb-3 d-flex justify-content-start">
+        <div className="m-1">
+          <button type="button" className={toggleAllButtonClassName} onClick={this.onToggleAll}>Toggle all</button>
         </div>
-        <input type="text" className="form-control" placeholder="Enter new task" aria-label="Enter new task" aria-describedby="basic-addon1" value={value} onChange={onInput} />
+        <InputFormContainer />
       </div>
-      <button type="submit" className="btn btn-primary btn-sm">Add</button>
-    </form>
-  )
+    )
+  }
 }
-
-const Header = (props) => {
-  const { value, handlers, isAllItemsFinished } = props;
-  const { onInput, onAdd, onToggleAll } = handlers;
-
-  const toggleAllButtonClassName = cn({
-    btn: true,
-    'btn-sm': true,
-    'border-0': true,
-    'mr-1': true,
-    'btn-secondary': isAllItemsFinished,
-  });
-
-  return (
-    <div className="mb-3 d-flex justify-content-start">
-      <button type="button" className={toggleAllButtonClassName} onClick={onToggleAll}>Toggle all</button>
-      <InputForm onInput={onInput} onAdd={onAdd} value={value} />
-    </div>
-  )
-}
-
-export default Header;

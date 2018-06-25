@@ -3,12 +3,12 @@ import cn from 'classnames';
 
 const ListItem = (props) => {
   const { item, handlers } = props;
-  const { onRemove, onToggle, onStartEdit, onEdit, onEndEdit } = handlers;
-  const { id, text, state } = item;
+  const { onRemove, onToggle, onStartEdit, onEndEdit, onEdit } = handlers;
+  const { id, text, state, editing } = item;
 
-  const textElement = item.editing ?
-    <form className="form-inline" onSubmit={onEndEdit}>
-      <input type="text" className="border-0 pl-1" autoFocus value={text} onChange={onEdit(id)} onBlur={onEndEdit} />
+  const textElement = editing ?
+    <form className="form-inline" onSubmit={onEndEdit(id)}>
+      <input type="text" className="border-0 pl-1" autoFocus value={text} onChange={onEdit(id)} onBlur={onEndEdit(id)} />
     </form> :
     <div className="ml-1" onDoubleClick={onStartEdit(id)}>{state === 'finished' ? <s>{text}</s> : text}</div>
 
@@ -30,16 +30,50 @@ const ListItem = (props) => {
 }
 
 export default class ListItems extends React.Component {
-  render() {
-    const { list, handlers } = this.props;
+  onRemove = (id) => () => {
+    const { removeTask } = this.props;
+    removeTask(id);
+  }
 
-    if (list.length === 0) {
+  onToggle = (id) => () => {
+    const { toggleTaskState } = this.props;
+    toggleTaskState(id);
+  }
+
+  onStartEdit = (id) => () => {
+    const { editTaskStart } = this.props;
+    editTaskStart(id);
+  }
+
+  onEdit = (id) => (e) => {
+    const { editTask } = this.props;
+    editTask(id, e.target.value);
+  }
+
+  onEndEdit = (id) => (e) => {
+    e.preventDefault();
+    const { editTaskEnd } = this.props;
+    editTaskEnd(id);
+  }
+
+  render() {
+    const { items } = this.props;
+    
+    if (items.length === 0) {
       return null;
+    }
+    
+    const handlers = {
+      onRemove: this.onRemove,
+      onToggle: this.onToggle,
+      onStartEdit: this.onStartEdit,
+      onEndEdit: this.onEndEdit,
+      onEdit: this.onEdit,
     }
 
     return (
       <ul className="list-group">
-        {list.map(item => <ListItem item={item} key={item.id} handlers={handlers} />)}
+        {items.map(item => <ListItem item={item} key={item.id} handlers={handlers} />)}
       </ul>
     )
   }
