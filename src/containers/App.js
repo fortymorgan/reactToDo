@@ -3,8 +3,8 @@ import App from '../components/App.jsx';
 import * as actionCreators from '../actions';
 
 const mapStateToProps = (state) => {
-  const props = {};
-  return props;
+  const { currentUser } = state;
+  return { currentUser };
 }
 
 export default connect(

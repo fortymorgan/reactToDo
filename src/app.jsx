@@ -5,18 +5,9 @@ import { Provider } from 'react-redux';
 import firebase from 'firebase';
 import reducers from './reducers/reducers';
 import AppContainer from './containers/App';
-import { getItemsList } from './storage';
-
-const getInitialState = () => {
-  const items = getItemsList();
-  const nextId = items.length > 0 ? +items[items.length - 1].id + 1 : 0;
-
-  return { items, nextId };
-}
 
 const store = createStore(
   reducers,
-  getInitialState(),
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
 )
 

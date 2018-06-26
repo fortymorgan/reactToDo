@@ -31,13 +31,13 @@ const ListItem = (props) => {
 
 export default class ListItems extends React.Component {
   onRemove = (id) => () => {
-    const { removeTask } = this.props;
-    removeTask(id);
+    const { removeTask, currentUser } = this.props;
+    removeTask(id, currentUser.uid);
   }
 
   onToggle = (id) => () => {
-    const { toggleTaskState } = this.props;
-    toggleTaskState(id);
+    const { toggleTaskState, currentUser } = this.props;
+    toggleTaskState(id, currentUser.uid);
   }
 
   onStartEdit = (id) => () => {
@@ -52,8 +52,8 @@ export default class ListItems extends React.Component {
 
   onEndEdit = (id) => (e) => {
     e.preventDefault();
-    const { editTaskEnd } = this.props;
-    editTaskEnd(id);
+    const { editTaskEnd, currentUser } = this.props;
+    editTaskEnd(id, currentUser.uid);
   }
 
   render() {

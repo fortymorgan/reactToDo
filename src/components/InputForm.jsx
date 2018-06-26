@@ -4,8 +4,8 @@ export default class InputForm extends React.Component {
   onAdd = (e) => {
     e.preventDefault();
 
-    const { input, nextId, addTask } = this.props;
-    addTask(nextId, input);
+    const { input, nextId, currentUser, addTask } = this.props;
+    addTask(nextId, input, currentUser.uid);
   }
 
   onInput = (e) => {
