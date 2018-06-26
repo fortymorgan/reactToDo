@@ -16,13 +16,15 @@
   "dependencies": {
     "bootstrap": "^4.1.1",
     "classnames": "^2.2.6",
+    "firebase": "^5.1.0",
     "jquery": "^3.3.1",
     "popper.js": "^1.14.3",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-redux": "^5.0.7",
     "redux": "^4.0.0",
-    "redux-actions": "^2.4.0"
+    "redux-actions": "^2.4.0",
+    "redux-form": "^7.4.2"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",

@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import { handleActions } from 'redux-actions';
+import { reducer as formReducer } from 'redux-form';
 import * as actions from '../actions';
 import { toLocalStorage } from '../storage';
 
@@ -65,9 +66,20 @@ const filter = handleActions({
   }
 }, 'all');
 
+const user = handleActions({
+  [actions.signIn](state, { payload: { email } }) {
+    return email;
+  },
+  [actions.signOut]() {
+    return '';
+  }
+}, '');
+
 export default combineReducers({
   items,
   input,
   nextId,
   filter,
+  user,
+  form: formReducer,
 });

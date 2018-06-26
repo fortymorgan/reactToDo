@@ -10,3 +10,5 @@ export const toggleFilter = createAction('FILTER_TOGGLE', filter => ({ filter })
 export const editTaskStart = createAction('TASK_EDIT_START', id => ({ id }));
 export const editTask = createAction('TASK_EDIT', (id, text) => ({ id, text }));
 export const editTaskEnd = createAction('TASK_EDIT_END', id => ({ id }));
+export const signIn = createAction('USER_SIGN_IN', ({ email }) => ({ email }))
+export const signOut = createAction('USER_SIGN_OUT');
