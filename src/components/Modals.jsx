@@ -1,5 +1,5 @@
 import React from 'react';
-import { LoginReduxForm, RegistrationReduxForm } from './Forms.jsx';
+import { LoginReduxFormContainer, RegistrationReduxFormContainer } from '../containers/Forms';
 
 export const LoginModal = () => {
   return (
@@ -13,7 +13,7 @@ export const LoginModal = () => {
             </button>
           </div>
           <div className="modal-body">
-            <LoginReduxForm />
+            <LoginReduxFormContainer />
           </div>
         </div>
       </div>
@@ -33,7 +33,7 @@ export const RegistrationModal = () => {
             </button>
           </div>
           <div className="modal-body">
-            <RegistrationReduxForm />
+            <RegistrationReduxFormContainer />
           </div>
         </div>
       </div>

@@ -4,13 +4,50 @@ import { reducer as formReducer } from 'redux-form';
 import firebase from 'firebase';
 import * as actions from '../actions';
 
+const signInState = handleActions({
+  [actions.signInRequest]() {
+    return 'requested';
+  },
+  [actions.signInFailure]() {
+    return 'failed';
+  },
+  [actions.signInSuccess]() {
+    return 'successed';
+  },
+}, 'none');
+
+const signUpState = handleActions({
+  [actions.signUpRequest]() {
+    return 'requested';
+  },
+  [actions.signUpFailure]() {
+    return 'failed';
+  },
+  [actions.signUpSuccess]() {
+    return 'successed';
+  },
+}, 'none');
+
+const signOutState = handleActions({
+  [actions.signOutRequest]() {
+    return 'requested';
+  },
+  [actions.signOutFailure]() {
+    return 'failed';
+  },
+  [actions.signOutSuccess]() {
+    return 'successed';
+  },
+}, 'none');
+
 const items = handleActions({
   [actions.updateStateOnLogin](state, { payload: { items } }) {
     return items;
   },
   [actions.addTask](state, { payload: { id, text, userId } }) {
     const newState = [...state, { id, text, state: 'active', editing: false }];
-    firebase.database().ref('lists/' + userId).set(newState);
+    firebase.database().ref('lists/' + userId).set(newState)
+      .then(res => console.log(res));
     return newState;
   },
   [actions.removeTask](state, { payload: { id, userId } }) {
@@ -73,15 +110,18 @@ const filter = handleActions({
 }, 'all');
 
 const currentUser = handleActions({
-  [actions.signIn](state, { payload: { email, uid } }) {
+  [actions.signInSuccess](state, { payload: { email, uid } }) {
     return { email, uid };
   },
-  [actions.signOut]() {
+  [actions.signOutSuccess]() {
     return '';
   }
 }, '');
 
 export default combineReducers({
+  signInState,
+  signUpState,
+  signOutState,
   items,
   input,
   nextId,

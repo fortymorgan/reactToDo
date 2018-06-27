@@ -1,4 +1,5 @@
 import { createAction } from 'redux-actions';
+import firebase from 'firebase';
 
 export const addTask = createAction('TASK_ADD', (id, text, userId) => ({ id, text, userId }));
 export const removeTask = createAction('TASK_REMOVE', (id, userId) => ({ id, userId }));
@@ -13,3 +14,50 @@ export const editTaskEnd = createAction('TASK_EDIT_END', (id, userId) => ({ id, 
 export const signIn = createAction('USER_SIGN_IN', ({ email, uid }) => ({ email, uid }))
 export const signOut = createAction('USER_SIGN_OUT');
 export const updateStateOnLogin = createAction('TASK_LIST_UPDATE', (items, nextId) => ({ items, nextId }));
+
+export const signInRequest = createAction('SIGN_IN_REQUEST');
+export const signInSuccess = createAction('SIGN_IN_SUCCESS', ({ email, uid }) => ({ email, uid }));
+export const signInFailure = createAction('SIGN_IN_FAILURE');
+
+export const onSignIn = (values) => async (dispatch) => {
+  const { email, password } = values;
+
+  dispatch(signInRequest());
+  try {
+    const credentials = await firebase.auth().signInWithEmailAndPassword(email, password);
+    dispatch(signInSuccess(credentials.user));
+  } catch (e) {
+    dispatch(signInFailure());
+  }
+};
+
+export const signUpRequest = createAction('SIGN_UP_REQUEST');
+export const signUpSuccess = createAction('SIGN_UP_SUCCESS');
+export const signUpFailure = createAction('SIGN_UP_FAILURE');
+
+export const onSignUp = (values) => async (dispatch) => {
+  const { email, password } = values;
+
+  dispatch(signUpRequest());
+  try {
+    await firebase.auth().createUserWithEmailAndPassword(email, password);
+    dispatch(signUpSuccess());
+    dispatch(onSignIn(values))
+  } catch (e) {
+    dispatch(signUpFailure());
+  }
+};
+
+export const signOutRequest = createAction('SIGN_OUT_REQUEST');
+export const signOutSuccess = createAction('SIGN_OUT_SUCCESS');
+export const signOutFailure = createAction('SIGN_OUT_FAILURE');
+
+export const onSignOut = () => async (dispatch) => {
+  dispatch(signOutRequest());
+  try {
+    await firebase.auth().signOut();
+    dispatch(signOutSuccess());
+  } catch (e) {
+    dispatch(signOutFailure());
+  }
+};

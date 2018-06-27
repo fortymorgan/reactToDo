@@ -1,30 +1,10 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
-import $ from 'jquery';
-import firebase from 'firebase';
-
-const onLogin = (values) => {
-  const { email, password } = values;
-
-  firebase.auth().signInWithEmailAndPassword(email, password)
-    .then(() => {
-      $('#signInForm').modal('hide');
-    });
-}
-
-const onRegistration = (values) => {
-  const { email, password } = values;
-
-  firebase.auth().createUserWithEmailAndPassword(email, password)
-    .then(() => {
-      firebase.auth().signInWithEmailAndPassword(email, password)
-      $('#signUpForm').modal('hide');
-    });
-}
 
 const LoginForm = (props) => {
+  const { onSignIn } = props;
   return (
-    <form onSubmit={props.handleSubmit(onLogin)}>
+    <form onSubmit={props.handleSubmit(onSignIn)}>
       <div className="form-group">
         <label htmlFor="emailSignInInput">Email address</label>
         <Field name="email" required component="input" type="email" className="form-control" id="emailSignInInput" placeholder="Enter email" />
@@ -43,8 +23,9 @@ export const LoginReduxForm = reduxForm({
 })(LoginForm);
 
 const RegistrationForm = (props) => {
+  const { onSignUp } = props;
   return (
-    <form onSubmit={props.handleSubmit(onRegistration)}>
+    <form onSubmit={props.handleSubmit(onSignUp)}>
       <div className="form-group">
         <label htmlFor="emailSignUpInput">Email address</label>
         <Field name="email" required component="input" type="email" className="form-control" id="emailSignUpInput" placeholder="Enter email" />
