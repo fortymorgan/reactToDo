@@ -11,9 +11,10 @@ export const toggleFilter = createAction('FILTER_TOGGLE', filter => ({ filter })
 export const editTaskStart = createAction('TASK_EDIT_START', id => ({ id }));
 export const editTask = createAction('TASK_EDIT', (id, text) => ({ id, text }));
 export const editTaskEnd = createAction('TASK_EDIT_END', (id, userId) => ({ id, userId }));
-export const signIn = createAction('USER_SIGN_IN', ({ email, uid }) => ({ email, uid }))
-export const signOut = createAction('USER_SIGN_OUT');
 export const updateStateOnLogin = createAction('TASK_LIST_UPDATE', (items, nextId) => ({ items, nextId }));
+export const signInScreen = createAction('SCREEN_SIGN_IN');
+export const signUpScreen = createAction('SCREEN_SIGN_OUT');
+export const noAuthScreen = createAction('SCREEN_NO_AUTH');
 
 export const signInRequest = createAction('SIGN_IN_REQUEST');
 export const signInSuccess = createAction('SIGN_IN_SUCCESS', ({ email, uid }) => ({ email, uid }));

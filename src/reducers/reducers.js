@@ -118,6 +118,24 @@ const currentUser = handleActions({
   }
 }, '');
 
+const screen = handleActions({
+  [actions.signInScreen]() {
+    return 'signin';
+  },
+  [actions.signUpScreen]() {
+    return 'signup';
+  },
+  [actions.noAuthScreen]() {
+    return 'noauth';
+  },
+  [actions.signInSuccess]() {
+    return 'loggedin';
+  },
+  [actions.signOutSuccess]() {
+    return 'noauth';
+  },
+}, 'noauth');
+
 export default combineReducers({
   signInState,
   signUpState,
@@ -126,6 +144,7 @@ export default combineReducers({
   input,
   nextId,
   filter,
+  screen,
   currentUser,
   form: formReducer,
 });

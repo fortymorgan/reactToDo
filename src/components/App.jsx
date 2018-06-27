@@ -1,6 +1,6 @@
 import React from 'react';
 import firebase from 'firebase';
-import { LoginModal, RegistrationModal } from './Modals.jsx'
+import { LoginReduxFormContainer, RegistrationReduxFormContainer } from '../containers/Forms';
 import HeaderContainer from '../containers/Header';
 import ListItemsContainer from '../containers/ListItems';
 import FooterContainer from '../containers/Footer';
@@ -25,10 +25,34 @@ export default class App extends React.Component {
   }
   
   render() {
-    const { currentUser, onSignOut } = this.props;
+    const { currentUser, onSignOut, screen, signInScreen, signUpScreen } = this.props;
 
-    if (currentUser !== '') {
-      return (
+    const app = {
+      noauth: (
+        <div className="jumbotron">
+          <div className="m-1">
+            <button type="button" className="btn btn-primary btn-sm" onClick={signInScreen}>
+              Sign in
+            </button>
+          </div>
+          <div className="m-1">
+            <button type="button" className="btn btn-primary btn-sm" onClick={signUpScreen}>
+              Sign up
+            </button>
+          </div>
+        </div>
+      ),
+      signup: (
+        <div className="jumbotron">
+          <RegistrationReduxFormContainer />
+        </div>
+      ),
+      signin: (
+        <div className="jumbotron">
+          <LoginReduxFormContainer />
+        </div>
+      ),
+      loggedin: (
         <div className="jumbotron">
           <p className="m-1">{currentUser.email}</p>
           <button type="button" className="btn btn-primary btn-sm" onClick={onSignOut}>
@@ -39,23 +63,8 @@ export default class App extends React.Component {
           <FooterContainer />
         </div>
       )
-    } else {
-      return (
-        <div className="jumbotron">
-          <LoginModal />
-          <RegistrationModal />
-          <div className="m-1">
-            <button type="button" className="btn btn-primary btn-sm" data-toggle="modal" data-target="#signInForm">
-              Sign in
-            </button>
-          </div>
-          <div className="m-1">
-            <button type="button" className="btn btn-primary btn-sm" data-toggle="modal" data-target="#signUpForm">
-              Sign up
-            </button>
-          </div>
-        </div>
-      )
     }
+
+    return app[screen];
   }
 }
