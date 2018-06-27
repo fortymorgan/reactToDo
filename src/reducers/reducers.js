@@ -2,75 +2,30 @@ import { combineReducers } from 'redux';
 import { handleActions } from 'redux-actions';
 import { reducer as formReducer } from 'redux-form';
 import firebase from 'firebase';
+import _ from 'lodash';
 import * as actions from '../actions';
-
-const signInState = handleActions({
-  [actions.signInRequest]() {
-    return 'requested';
-  },
-  [actions.signInFailure]() {
-    return 'failed';
-  },
-  [actions.signInSuccess]() {
-    return 'successed';
-  },
-}, 'none');
-
-const signUpState = handleActions({
-  [actions.signUpRequest]() {
-    return 'requested';
-  },
-  [actions.signUpFailure]() {
-    return 'failed';
-  },
-  [actions.signUpSuccess]() {
-    return 'successed';
-  },
-}, 'none');
-
-const signOutState = handleActions({
-  [actions.signOutRequest]() {
-    return 'requested';
-  },
-  [actions.signOutFailure]() {
-    return 'failed';
-  },
-  [actions.signOutSuccess]() {
-    return 'successed';
-  },
-}, 'none');
+import authStateReducers from './authState';
+import tasksStateReducers from './tasksState';
 
 const items = handleActions({
   [actions.updateStateOnLogin](state, { payload: { items } }) {
     return items;
   },
-  [actions.addTask](state, { payload: { id, text, userId } }) {
-    const newState = [...state, { id, text, state: 'active', editing: false }];
-    firebase.database().ref('lists/' + userId).set(newState)
-      .then(res => console.log(res));
-    return newState;
+  [actions.createTaskSuccess](state, { payload: { task } }) {
+    return { ...state, ...task };
   },
-  [actions.removeTask](state, { payload: { id, userId } }) {
-    const newState = state.filter(item => item.id !== id);
-    firebase.database().ref('lists/' + userId).set(newState);
-    return newState;
+  [actions.removeTaskSuccess](state, { payload: { dbId } }) {
+    return _.omit(state, dbId);
   },
-  [actions.toggleTaskState](state, { payload: { id, userId } }) {
-    const newState = state.map(item => item.id !== id ? item :
-      { ...item, state: item.state === 'active' ? 'finished' : 'active' });
-    firebase.database().ref('lists/' + userId).set(newState);
-    return newState;
+  [actions.toggleTaskSuccess](state, { payload: { dbId } }) {
+    return _.mapValues(state, (value, key) => key !== dbId ? value :
+      { ...value, state: value.state === 'active' ? 'finished' : 'active' });
   },
-  [actions.toggleAllTaskState](state, { payload: { userId } }) {
-    const toggledState = state.every(({ state }) => state === 'finished') ? 'active' : 'finished';
-    const newState = state.map(item => ({ ...item, state: toggledState }));
-    firebase.database().ref('lists/' + userId).set(newState);
-    return newState;
+  [actions.toggleAllTaskSuccess](state, { payload: { itemsState } }) {
+    return _.mapValues(state, value => ({ ...value, state: itemsState }));
   },
-  [actions.removeFinishedTasks](state, { payload: { userId } }) {
-    const newState = state.filter(({ state }) => state !== 'finished');
-    firebase.database().ref('lists/' + userId).set(newState);
-    return newState;
+  [actions.removeFinishedTasksSuccess](state) {
+    return _.omitBy(state, value => value.state === 'finished');
   },
   [actions.editTaskStart](state, { payload: { id } }) {
     return state.map(item => item.id === id ? { ...item, editing: true } : item);
@@ -82,11 +37,14 @@ const items = handleActions({
   },
   [actions.editTask](state, { payload: { id, text } }) {
     return state.map(item => (item.id === id ? { ...item, text } : item));
+  },
+  [actions.signOutSuccess]() {
+    return {};
   }
-}, []);
+}, {});
 
 const input = handleActions({
-  [actions.addTask]() {
+  [actions.createTaskSuccess]() {
     return '';
   },
   [actions.changeInput](state, { payload: { text } }) {
@@ -98,8 +56,11 @@ const nextId = handleActions({
   [actions.updateStateOnLogin](state, { payload: { nextId } }) {
     return nextId;
   },
-  [actions.addTask](state) {
+  [actions.createTaskSuccess](state) {
     return state + 1;
+  },
+  [actions.signOutSuccess]() {
+    return 0;
   }
 }, 0);
 
@@ -110,8 +71,8 @@ const filter = handleActions({
 }, 'all');
 
 const currentUser = handleActions({
-  [actions.signInSuccess](state, { payload: { email, uid } }) {
-    return { email, uid };
+  [actions.signInSuccess](state, { payload: { email } }) {
+    return email;
   },
   [actions.signOutSuccess]() {
     return '';
@@ -137,9 +98,8 @@ const screen = handleActions({
 }, 'noauth');
 
 export default combineReducers({
-  signInState,
-  signUpState,
-  signOutState,
+  ...authStateReducers,
+  ...tasksStateReducers,
   items,
   input,
   nextId,

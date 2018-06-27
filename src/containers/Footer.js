@@ -3,12 +3,15 @@ import Footer from '../components/Footer.jsx';
 import * as actionCreators from '../actions';
 
 const mapStateToProps = (state) => {
-  const { items, filter, currentUser } = state;
+  const { items, filter } = state;
 
-  const activeItemsCount = items.filter(item => item.state === 'active').length;
-  const isListEmpty = items.length === 0;
+  const itemsArray = Object.values(items);
+  const dbIds = Object.keys(items).filter(key => items[key].state === 'finished');
 
-  return { filter, activeItemsCount, isListEmpty, currentUser };
+  const activeItemsCount = itemsArray.filter(item => item.state === 'active').length;
+  const isListEmpty = itemsArray.length === 0;
+
+  return { filter, activeItemsCount, isListEmpty, dbIds };
 }
 
 export default connect(

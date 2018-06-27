@@ -4,8 +4,10 @@ export default class InputForm extends React.Component {
   onAdd = (e) => {
     e.preventDefault();
 
-    const { input, nextId, currentUser, addTask } = this.props;
-    addTask(nextId, input, currentUser.uid);
+    const { input, nextId, onTaskAdd } = this.props;
+
+    const newTask = { id: nextId, text: input, state: 'active', editing: false };
+    onTaskAdd(newTask);
   }
 
   onInput = (e) => {
@@ -14,7 +16,9 @@ export default class InputForm extends React.Component {
   }
 
   render() {
-    const { input } = this.props;
+    const { input, createTaskState } = this.props;
+
+    const disabled = createTaskState === 'requested';
   
     return (
       <form className="form-inline" onSubmit={this.onAdd}>
@@ -24,7 +28,7 @@ export default class InputForm extends React.Component {
           </div>
           <input type="text" className="form-control" placeholder="Enter new task" aria-label="Enter new task" aria-describedby="basic-addon1" value={input} onChange={this.onInput} />
         </div>
-        <button type="submit" className="btn btn-primary btn-sm">Add</button>
+        <button type="submit" className="btn btn-primary btn-sm" disabled={disabled}>Add</button>
       </form>
     )
   }

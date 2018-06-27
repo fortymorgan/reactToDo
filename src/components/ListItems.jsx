@@ -4,13 +4,13 @@ import cn from 'classnames';
 const ListItem = (props) => {
   const { item, handlers } = props;
   const { onRemove, onToggle, onStartEdit, onEndEdit, onEdit } = handlers;
-  const { id, text, state, editing } = item;
+  const { dbId, id, text, state, editing } = item;
 
   const textElement = editing ?
     <form className="form-inline" onSubmit={onEndEdit(id)}>
       <input type="text" className="border-0 pl-1" autoFocus value={text} onChange={onEdit(id)} onBlur={onEndEdit(id)} />
     </form> :
-    <div className="ml-1" onDoubleClick={onStartEdit(id)}>{state === 'finished' ? <s>{text}</s> : text}</div>
+    <div className="ml-1">{state === 'finished' ? <s>{text}</s> : text}</div>
 
   const toggleButtonClassName = cn({
     btn: true,
@@ -22,22 +22,22 @@ const ListItem = (props) => {
 
   return (
     <li className="list-group-item d-flex justify-content-start">
-      <button className={toggleButtonClassName} onClick={onToggle(id)}>-</button>
+      <button className={toggleButtonClassName} onClick={onToggle(dbId, state === 'active' ? 'finished' : 'active')}>-</button>
       {textElement}
-      <button className="btn border-0 btn-danger btn-sm ml-auto" onClick={onRemove(id)}>x</button>
+      <button className="btn border-0 btn-danger btn-sm ml-auto" onClick={onRemove(dbId)}>x</button>
     </li>
   )
 }
 
 export default class ListItems extends React.Component {
-  onRemove = (id) => () => {
-    const { removeTask, currentUser } = this.props;
-    removeTask(id, currentUser.uid);
+  onRemove = (dbId) => () => {
+    const { onTaskRemove } = this.props;
+    onTaskRemove(dbId);
   }
 
-  onToggle = (id) => () => {
-    const { toggleTaskState, currentUser } = this.props;
-    toggleTaskState(id, currentUser.uid);
+  onToggle = (dbId, task) => () => {
+    const { onTaskToggle } = this.props;
+    onTaskToggle(dbId, task);
   }
 
   onStartEdit = (id) => () => {

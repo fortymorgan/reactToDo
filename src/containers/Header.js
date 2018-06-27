@@ -3,11 +3,14 @@ import Header from '../components/Header.jsx';
 import * as actionCreators from '../actions';
 
 const mapStateToProps = (state) => {
-  const { items, currentUser } = state;
+  const { items } = state;
 
-  const isAllItemsFinished = items.length !== 0 && items.every(item => item.state === 'finished');
+  const itemsArray = Object.values(items);
+  const dbIds = Object.keys(items);
 
-  return { isAllItemsFinished, currentUser };
+  const isAllItemsFinished = itemsArray.length !== 0 && itemsArray.every(item => item.state === 'finished');
+
+  return { isAllItemsFinished, dbIds };
 }
 
 export default connect(

@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import firebase from 'firebase';
 import reducers from './reducers/reducers';
 import AppContainer from './containers/App';
+import * as actions from './actions';
 
 const ext = window.__REDUX_DEVTOOLS_EXTENSION__;
 const devtoolMiddleware = ext && ext();
@@ -28,6 +29,21 @@ export default () => {
     messagingSenderId: "685646646125"
   };
   firebase.initializeApp(config);
+
+  firebase.auth().onAuthStateChanged(async (user) => {
+    if (user) {
+      store.dispatch(actions.signInSuccess(user));
+      const snapshot = await firebase.database().ref('lists/' + user.uid).once('value');
+      const list = snapshot.val();
+      store.dispatch(actions.updateStateOnLogin(list));
+
+      firebase.database().ref('lists/' + user.uid).on('child_added', (child) => {
+        store.dispatch(actions.createTaskSuccess({ [child.key]: child.val() }));
+      })
+    }
+  });
+
+
 
   const mountNode = document.getElementById('container');
   ReactDOM.render(

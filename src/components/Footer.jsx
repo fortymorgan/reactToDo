@@ -3,8 +3,8 @@ import FiltersContainer from '../containers/Filters'
 
 export default class Footer extends React.Component {
   onClearFinished = () => {
-    const { removeFinishedTasks, currentUser } = this.props;
-    removeFinishedTasks(currentUser.uid);
+    const { onRemoveFinishedTasks, dbIds } = this.props;
+    onRemoveFinishedTasks(dbIds);
   }
 
   render() {

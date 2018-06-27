@@ -1,16 +1,17 @@
 import React from 'react';
 import cn from 'classnames';
-import firebase from 'firebase';
 import InputFormContainer from '../containers/InputForm';
 
 export default class Header extends React.Component {
   onToggleAll = () => {
-    const { toggleAllTaskState, currentUser } = this.props;
-    toggleAllTaskState(currentUser.uid);
+    const { dbIds, isAllItemsFinished, onTaskToggleAll } = this.props;
+    const state = isAllItemsFinished ? 'active' : 'finished';
+
+    onTaskToggleAll(dbIds, state);
   }
 
   render() {
-    const { isAllItemsFinished, currentUser } = this.props;
+    const { isAllItemsFinished } = this.props;
 
     const toggleAllButtonClassName = cn({
       btn: true,
@@ -18,7 +19,7 @@ export default class Header extends React.Component {
       'border-0': true,
       'btn-secondary': isAllItemsFinished,
     });
-  
+ 
     return(
       <div className="mb-3 d-flex justify-content-start">
         <div className="m-1">
