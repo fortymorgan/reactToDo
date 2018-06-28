@@ -2,7 +2,6 @@ import { combineReducers } from 'redux';
 import { handleActions } from 'redux-actions';
 import { reducer as formReducer } from 'redux-form';
 import { routerReducer } from 'react-router-redux';
-import firebase from 'firebase';
 import _ from 'lodash';
 import * as actions from '../actions';
 import authStateReducers from './authState';
@@ -28,9 +27,6 @@ const items = handleActions({
   [actions.removeFinishedTasksSuccess](state) {
     return _.omitBy(state, value => value.state === 'finished');
   },
-  [actions.signOutSuccess]() {
-    return {};
-  }
 }, {});
 
 const input = handleActions({
@@ -49,9 +45,6 @@ const nextId = handleActions({
   [actions.createTaskSuccess](state) {
     return state + 1;
   },
-  [actions.signOutSuccess]() {
-    return 0;
-  }
 }, 0);
 
 const filter = handleActions({
@@ -64,9 +57,6 @@ const currentUser = handleActions({
   [actions.signInSuccess](state, { payload: { email } }) {
     return email;
   },
-  [actions.signOutSuccess]() {
-    return '';
-  }
 }, '');
 
 export default combineReducers({
