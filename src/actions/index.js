@@ -16,10 +16,6 @@ export const updateStateOnLogin = createAction('TASK_LIST_UPDATE', (items) => {
   }
 });
 
-export const signInScreen = createAction('SCREEN_SIGN_IN');
-export const signUpScreen = createAction('SCREEN_SIGN_OUT');
-export const noAuthScreen = createAction('SCREEN_NO_AUTH');
-
 export const signInRequest = createAction('SIGN_IN_REQUEST');
 export const signInSuccess = createAction('SIGN_IN_SUCCESS', ({ email }) => ({ email }));
 export const signInFailure = createAction('SIGN_IN_FAILURE');

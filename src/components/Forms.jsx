@@ -1,8 +1,9 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
+import { Link } from 'react-router-dom';
 
 const LoginForm = (props) => {
-  const { onSignIn, noAuthScreen } = props;
+  const { onSignIn } = props;
   return (
     <form onSubmit={props.handleSubmit(onSignIn)}>
       <div className="form-group">
@@ -14,7 +15,9 @@ const LoginForm = (props) => {
         <Field name="password" required component="input" type="password" className="form-control" id="passwordSignInInput" placeholder="Password" />
       </div>
       <button type="submit" className="btn btn-primary">Sign in</button>
-      <button type="button" className="btn btn-primary ml-1" onClick={noAuthScreen}>Cancel</button>
+      <Link to="/">
+        <button type="button" className="btn btn-primary ml-1">Cancel</button>
+      </Link>
     </form>
   )
 }
@@ -24,7 +27,7 @@ export const LoginReduxForm = reduxForm({
 })(LoginForm);
 
 const RegistrationForm = (props) => {
-  const { onSignUp, noAuthScreen } = props;
+  const { onSignUp } = props;
   return (
     <form onSubmit={props.handleSubmit(onSignUp)}>
       <div className="form-group">
@@ -36,7 +39,9 @@ const RegistrationForm = (props) => {
         <Field name="password" required component="input" type="password" className="form-control" id="passwordSignUpInput" placeholder="Password" />
       </div>
       <button type="submit" className="btn btn-primary">Sign up</button>
-      <button type="button" className="btn btn-primary ml-1" onClick={noAuthScreen}>Cancel</button>
+      <Link to="/">
+        <button type="button" className="btn btn-primary ml-1">Cancel</button>
+      </Link>
     </form>
   )
 }

@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import { handleActions } from 'redux-actions';
 import { reducer as formReducer } from 'redux-form';
+import { routerReducer } from 'react-router-redux';
 import firebase from 'firebase';
 import _ from 'lodash';
 import * as actions from '../actions';
@@ -79,24 +80,6 @@ const currentUser = handleActions({
   }
 }, '');
 
-const screen = handleActions({
-  [actions.signInScreen]() {
-    return 'signin';
-  },
-  [actions.signUpScreen]() {
-    return 'signup';
-  },
-  [actions.noAuthScreen]() {
-    return 'noauth';
-  },
-  [actions.signInSuccess]() {
-    return 'loggedin';
-  },
-  [actions.signOutSuccess]() {
-    return 'noauth';
-  },
-}, 'noauth');
-
 export default combineReducers({
   ...authStateReducers,
   ...tasksStateReducers,
@@ -104,7 +87,7 @@ export default combineReducers({
   input,
   nextId,
   filter,
-  screen,
   currentUser,
   form: formReducer,
+  routing: routerReducer,
 });

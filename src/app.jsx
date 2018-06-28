@@ -3,23 +3,32 @@ import ReactDOM from 'react-dom';
 import thunk from 'redux-thunk';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
+import { Router } from 'react-router';
+import { syncHistoryWithStore, push, routerMiddleware } from 'react-router-redux';
+import createHistory from "history/createBrowserHistory";
 import firebase from 'firebase';
 import reducers from './reducers/reducers';
-import AppContainer from './containers/App';
+import App from './components/App.jsx';
 import * as actions from './actions';
 
-const ext = window.__REDUX_DEVTOOLS_EXTENSION__;
-const devtoolMiddleware = ext && ext();
-
-const store = createStore(
-  reducers,
-  compose(
-    applyMiddleware(thunk),
-    devtoolMiddleware,
-  ),
-)
-
 export default () => {
+  const ext = window.__REDUX_DEVTOOLS_EXTENSION__;
+  const devtoolMiddleware = ext && ext();
+  
+  const history = createHistory();
+  const routingMiddleware = routerMiddleware(history);
+
+  const store = createStore(
+    reducers,
+    compose(
+      applyMiddleware(thunk),
+      applyMiddleware(routingMiddleware),
+      devtoolMiddleware,
+    ),
+  )
+  
+  syncHistoryWithStore(history, store);
+
   const config = {
     apiKey: "AIzaSyANC1Oo_YO56Z3pGzxxtZ4LxxVxkJDLxGk",
     authDomain: "todo-list-84b73.firebaseapp.com",
@@ -32,6 +41,7 @@ export default () => {
 
   firebase.auth().onAuthStateChanged(async (user) => {
     if (user) {
+      store.dispatch(push('/app'));
       store.dispatch(actions.signInSuccess(user));
       const snapshot = await firebase.database().ref('lists/' + user.uid).once('value');
       const list = snapshot.val();
@@ -40,15 +50,17 @@ export default () => {
       firebase.database().ref('lists/' + user.uid).on('child_added', (child) => {
         store.dispatch(actions.createTaskSuccess({ [child.key]: child.val() }));
       })
+    } else {
+      store.dispatch(push('/'));
     }
   });
-
-
 
   const mountNode = document.getElementById('container');
   ReactDOM.render(
     <Provider store={store}>
-      <AppContainer />
+      <Router history={history}>
+        <App />
+      </Router>
     </Provider>,
     mountNode
   );
