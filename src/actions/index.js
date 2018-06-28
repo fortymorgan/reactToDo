@@ -3,9 +3,6 @@ import firebase from 'firebase';
 
 export const changeInput = createAction('INPUT_CHANGE', text => ({ text }));
 export const toggleFilter = createAction('FILTER_TOGGLE', filter => ({ filter }));
-export const editTaskStart = createAction('TASK_EDIT_START', id => ({ id }));
-export const editTask = createAction('TASK_EDIT', (id, text) => ({ id, text }));
-export const editTaskEnd = createAction('TASK_EDIT_END', (id, userId) => ({ id, userId }));
 export const updateStateOnLogin = createAction('TASK_LIST_UPDATE', (items) => {
   if (!items) {
     return { items: {}, nextId: 0 };

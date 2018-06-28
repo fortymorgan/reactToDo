@@ -3,14 +3,8 @@ import cn from 'classnames';
 
 const ListItem = (props) => {
   const { item, handlers } = props;
-  const { onRemove, onToggle, onStartEdit, onEndEdit, onEdit } = handlers;
-  const { dbId, id, text, state, editing } = item;
-
-  const textElement = editing ?
-    <form className="form-inline" onSubmit={onEndEdit(id)}>
-      <input type="text" className="border-0 pl-1" autoFocus value={text} onChange={onEdit(id)} onBlur={onEndEdit(id)} />
-    </form> :
-    <div className="ml-1">{state === 'finished' ? <s>{text}</s> : text}</div>
+  const { onRemove, onToggle } = handlers;
+  const { dbId, text, state } = item;
 
   const toggleButtonClassName = cn({
     btn: true,
@@ -23,7 +17,7 @@ const ListItem = (props) => {
   return (
     <li className="list-group-item d-flex justify-content-start">
       <button className={toggleButtonClassName} onClick={onToggle(dbId, state === 'active' ? 'finished' : 'active')}>-</button>
-      {textElement}
+      <div className="ml-1">{state === 'finished' ? <s>{text}</s> : text}</div>
       <button className="btn border-0 btn-danger btn-sm ml-auto" onClick={onRemove(dbId)}>x</button>
     </li>
   )

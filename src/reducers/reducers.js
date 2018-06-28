@@ -28,17 +28,6 @@ const items = handleActions({
   [actions.removeFinishedTasksSuccess](state) {
     return _.omitBy(state, value => value.state === 'finished');
   },
-  [actions.editTaskStart](state, { payload: { id } }) {
-    return state.map(item => item.id === id ? { ...item, editing: true } : item);
-  },
-  [actions.editTaskEnd](state, { payload: { id, userId } }) {
-    const newState = state.map(item => item.id === id ? { ...item, editing: false } : item);
-    firebase.database().ref('lists/' + userId).set(newState);
-    return newState;
-  },
-  [actions.editTask](state, { payload: { id, text } }) {
-    return state.map(item => (item.id === id ? { ...item, text } : item));
-  },
   [actions.signOutSuccess]() {
     return {};
   }
