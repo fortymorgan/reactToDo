@@ -13,30 +13,6 @@ const createTaskState = handleActions({
   },
 }, 'none');
 
-const removeTaskState = handleActions({
-  [actions.removeTaskRequest]() {
-    return 'requested';
-  },
-  [actions.removeTaskFailure]() {
-    return 'failed';
-  },
-  [actions.removeTaskSuccess]() {
-    return 'successed';
-  },
-}, 'none');
-
-const toggleTaskState = handleActions({
-  [actions.toggleTaskRequest]() {
-    return 'requested';
-  },
-  [actions.toggleTaskFailure]() {
-    return 'failed';
-  },
-  [actions.toggleTaskSuccess]() {
-    return 'successed';
-  },
-}, 'none');
-
 const toggleAllTaskState = handleActions({
   [actions.toggleAllTaskRequest]() {
     return 'requested';
@@ -63,8 +39,6 @@ const removeFinishedTasksState = handleActions({
 
 export default {
   createTaskState,
-  removeTaskState,
-  toggleTaskState,
   toggleAllTaskState,
   removeFinishedTasksState,
 }
