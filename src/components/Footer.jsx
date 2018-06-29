@@ -8,17 +8,19 @@ export default class Footer extends React.Component {
   }
 
   render() {
-    const { activeItemsCount, isListEmpty } = this.props;
+    const { activeItemsCount, isListEmpty, removeFinishedTasksState } = this.props;
 
     if (isListEmpty) {
       return null;
     }
+
+    const disabled = removeFinishedTasksState === 'requested';
     
     return (
       <div className="mt-3 d-flex justify-content-around">
         <span>{`${activeItemsCount} items left`}</span>
         <FiltersContainer />
-        <button className="btn btn-primary btn-sm" onClick={this.onClearFinished}>Clear finished</button>
+        <button className="btn btn-primary btn-sm" onClick={this.onClearFinished} disabled={disabled}>Clear finished</button>
       </div>
     )
   }
