@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { LoginReduxForm, RegistrationReduxForm } from '../components/Forms.jsx';
+import { LoginReduxForm, RegistrationReduxForm, EditingReduxForm } from '../components/Forms.jsx';
 import * as actionCreators from '../actions';
 
 const mapStateToProps = () => ({})

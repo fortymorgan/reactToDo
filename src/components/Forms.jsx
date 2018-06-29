@@ -49,3 +49,23 @@ const RegistrationForm = (props) => {
 export const RegistrationReduxForm = reduxForm({
   form: 'registration',
 })(RegistrationForm);
+
+class EditingForm extends React.Component {
+  constructor(props) {
+    super(props)
+    this.props.initialize({ text: this.props.text });
+  }
+  
+  render() {
+    const { handleSubmit, onEndEdit, dbId } = this.props;
+    return (
+      <form className="form-inline" onSubmit={handleSubmit(onEndEdit(dbId))}>
+        <Field name="text" required component="input" type="text" className="border-0 pl-1" onBlur={handleSubmit(onEndEdit(dbId))} autoFocus />
+      </form>
+    )
+  }
+}
+
+export const EditingReduxForm = reduxForm({
+  form: 'editing',
+})(EditingForm);

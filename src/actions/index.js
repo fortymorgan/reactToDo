@@ -13,6 +13,8 @@ export const updateStateOnLogin = createAction('TASK_LIST_UPDATE', (items) => {
   }
 });
 
+export const editTask = createAction('TASK_EDIT', dbId => ({ dbId }));
+
 export const signInRequest = createAction('SIGN_IN_REQUEST');
 export const signInSuccess = createAction('SIGN_IN_SUCCESS', ({ email }) => ({ email }));
 export const signInFailure = createAction('SIGN_IN_FAILURE');
@@ -131,5 +133,20 @@ export const onRemoveFinishedTasks = (dbIds) => async (dispatch) => {
     dispatch(removeFinishedTasksSuccess());
   } catch (e) {
     dispatch(removeFinishedTasksFailure());
+  }
+}
+
+export const editTaskRequest = createAction('TASK_EDIT_REQUEST');
+export const editTaskSuccess = createAction('TASK_EDIT_SUCCESS', (dbId, text) => ({ dbId, text }));
+export const editTaskFailure = createAction('TASK_EDIT_FAILURE');
+
+export const onEditTask = (dbId, text) => async (dispatch) => {
+  dispatch(editTaskRequest());
+  try {
+    const userId = firebase.auth().currentUser.uid;
+    await firebase.database().ref('lists/' + userId + '/' + dbId + '/text').set(text);
+    dispatch(editTaskSuccess(dbId, text));
+  } catch (e) {
+    dispatch(editTaskFailure());
   }
 }

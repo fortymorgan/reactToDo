@@ -1,10 +1,11 @@
 import React from 'react';
 import cn from 'classnames';
+import { EditingReduxForm } from './Forms.jsx';
 
 const ListItem = (props) => {
   const { item, handlers } = props;
-  const { onRemove, onToggle } = handlers;
-  const { dbId, text, state } = item;
+  const { onRemove, onToggle, onStartEdit, onEndEdit } = handlers;
+  const { dbId, text, state, editing } = item;
 
   const toggleButtonClassName = cn({
     btn: true,
@@ -14,10 +15,12 @@ const ListItem = (props) => {
     'btn-secondary': item.state === 'finished',
   });
 
+  const textField = editing ? <EditingReduxForm text={text} onEndEdit={onEndEdit} dbId={dbId} /> : <div className="ml-1" onDoubleClick={onStartEdit(dbId)}>{state === 'finished' ? <s>{text}</s> : text}</div>
+
   return (
     <li className="list-group-item d-flex justify-content-start">
       <button className={toggleButtonClassName} onClick={onToggle(dbId, state === 'active' ? 'finished' : 'active')}>-</button>
-      <div className="ml-1">{state === 'finished' ? <s>{text}</s> : text}</div>
+      {textField}
       <button className="btn border-0 btn-danger btn-sm ml-auto" onClick={onRemove(dbId)}>x</button>
     </li>
   )
@@ -34,20 +37,14 @@ export default class ListItems extends React.Component {
     onTaskToggle(dbId, task);
   }
 
-  onStartEdit = (id) => () => {
-    const { editTaskStart } = this.props;
-    editTaskStart(id);
-  }
-
-  onEdit = (id) => (e) => {
+  onStartEdit = (dbId) => () => {
     const { editTask } = this.props;
-    editTask(id, e.target.value);
+    editTask(dbId);
   }
 
-  onEndEdit = (id) => (e) => {
-    e.preventDefault();
-    const { editTaskEnd, currentUser } = this.props;
-    editTaskEnd(id, currentUser.uid);
+  onEndEdit = (dbId) => (values) => {
+    const { onEditTask } = this.props;
+    onEditTask(dbId, values.text);
   }
 
   render() {
@@ -62,7 +59,6 @@ export default class ListItems extends React.Component {
       onToggle: this.onToggle,
       onStartEdit: this.onStartEdit,
       onEndEdit: this.onEndEdit,
-      onEdit: this.onEdit,
     }
 
     return (

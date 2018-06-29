@@ -27,6 +27,12 @@ const items = handleActions({
   [actions.removeFinishedTasksSuccess](state) {
     return _.omitBy(state, value => value.state === 'finished');
   },
+  [actions.editTask](state, { payload: { dbId } }) {
+    return _.mapValues(state, (value, key) => key === dbId ? { ...value, editing: true } : value);
+  },
+  [actions.editTaskSuccess](state, { payload: { dbId, text } }) {
+    return _.mapValues(state, (value, key) => key === dbId ? { ...value, editing: false, text } : value);
+  },
 }, {});
 
 const input = handleActions({
