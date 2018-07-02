@@ -15,16 +15,14 @@ export default class Header extends React.Component {
 
     const toggleAllButtonClassName = cn({
       btn: true,
-      'btn-sm': true,
-      'border-0': true,
-      'btn-secondary': isAllItemsFinished,
+      'btn-toggled': isAllItemsFinished,
     });
 
     const disabled = toggleAllTaskState === 'requested';
  
     return(
-      <div className="mb-3 d-flex justify-content-start">
-        <div className="m-1">
+      <div className="app-body-header">
+        <div className="toggle-all">
           <button type="button" className={toggleAllButtonClassName} onClick={this.onToggleAll} disabled={disabled}>Toggle all</button>
         </div>
         <InputFormContainer />

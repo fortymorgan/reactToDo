@@ -9,19 +9,17 @@ const ListItem = (props) => {
 
   const toggleButtonClassName = cn({
     btn: true,
-    'border-0': true,
-    'btn-sm': true,
-    'mr-2': true,
-    'btn-secondary': item.state === 'finished',
+    'btn-check': true,
+    'btn-toggled': item.state === 'finished',
   });
 
-  const textField = editing ? <EditingReduxForm text={text} onEndEdit={onEndEdit} dbId={dbId} /> : <div className="ml-1" onDoubleClick={onStartEdit(dbId)}>{state === 'finished' ? <s>{text}</s> : text}</div>
+  const textField = editing ? <EditingReduxForm text={text} onEndEdit={onEndEdit} dbId={dbId} /> : <div className="task-text" onDoubleClick={onStartEdit(dbId)}>{state === 'finished' ? <s>{text}</s> : text}</div>
 
   return (
-    <li className="list-group-item d-flex justify-content-start">
-      <button className={toggleButtonClassName} onClick={onToggle(dbId, state === 'active' ? 'finished' : 'active')}>-</button>
+    <li className="list-item">
+      <button className={toggleButtonClassName} onClick={onToggle(dbId, state === 'active' ? 'finished' : 'active')}>✓</button>
       {textField}
-      <button className="btn border-0 btn-danger btn-sm ml-auto" onClick={onRemove(dbId)}>x</button>
+      <button className="btn btn-remove" onClick={onRemove(dbId)}>🞩</button>
     </li>
   )
 }
@@ -62,7 +60,7 @@ export default class ListItems extends React.Component {
     }
 
     return (
-      <ul className="list-group">
+      <ul className="app-body-list">
         {items.map(item => <ListItem item={item} key={item.id} handlers={handlers} />)}
       </ul>
     )

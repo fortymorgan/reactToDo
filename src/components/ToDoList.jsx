@@ -7,14 +7,21 @@ const ToDoList = (props) => {
   const { currentUser, onSignOut } = props;
 
   return (
-    <div>
-      <p className="m-1">{currentUser}</p>
-      <button type="button" className="btn btn-primary btn-sm" onClick={onSignOut}>
-        Sign out
-      </button>
-      <HeaderContainer />
-      <ListItemsContainer />
-      <FooterContainer />
+    <div className="app">
+      <div className="app-header">
+        <h1>To-do list</h1>
+        <div className="auth-user-signout">
+          <p className="username">{currentUser}</p>
+          <button type="button" className="btn" onClick={onSignOut}>
+            Sign out
+          </button>
+        </div>
+      </div>
+      <div className="app-body">
+        <HeaderContainer />
+        <ListItemsContainer />
+        <FooterContainer />
+      </div>
     </div>
   )
 }

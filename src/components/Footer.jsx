@@ -17,7 +17,7 @@ export default class Footer extends React.Component {
     const disabled = removeFinishedTasksState === 'requested';
     
     return (
-      <div className="mt-3 d-flex justify-content-around">
+      <div className="app-body-footer">
         <span>{`${activeItemsCount} items left`}</span>
         <FiltersContainer />
         <button className="btn btn-primary btn-sm" onClick={this.onClearFinished} disabled={disabled}>Clear finished</button>

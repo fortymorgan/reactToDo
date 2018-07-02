@@ -5,20 +5,29 @@ import { Link } from 'react-router-dom';
 const LoginForm = (props) => {
   const { onSignIn } = props;
   return (
-    <form onSubmit={props.handleSubmit(onSignIn)}>
-      <div className="form-group">
-        <label htmlFor="emailSignInInput">Email address</label>
-        <Field name="email" required component="input" type="email" className="form-control" id="emailSignInInput" placeholder="Enter email" />
+    <div className="app">
+      <div className="app-header">
+        <h1>To-do list</h1>
+        <form onSubmit={props.handleSubmit(onSignIn)} className="auth-form">
+          <div className="auth-input-group">
+            <label htmlFor="emailSignInInput" className="auth-input-label">Email:</label>
+            <Field name="email" required component="input" type="email" className="auth-input" id="emailSignInInput" placeholder="Email" />
+          </div>
+          <div className="auth-input-group">
+            <label htmlFor="passwordSignInInput" className="auth-input-label">Password:</label>
+            <Field name="password" required component="input" type="password" className="auth-input" id="passwordSignInInput" placeholder="Password" />
+          </div>
+          <div className="auth-button">
+            <button type="submit" className="btn">Submit</button>
+          </div>
+          <div className="auth-button">
+            <Link to="/">
+              <button type="button" className="btn">Cancel</button>
+            </Link>
+          </div>
+        </form>
       </div>
-      <div className="form-group">
-        <label htmlFor="passwordSignInInput">Password</label>
-        <Field name="password" required component="input" type="password" className="form-control" id="passwordSignInInput" placeholder="Password" />
-      </div>
-      <button type="submit" className="btn btn-primary">Sign in</button>
-      <Link to="/">
-        <button type="button" className="btn btn-primary ml-1">Cancel</button>
-      </Link>
-    </form>
+    </div>
   )
 }
 
@@ -29,20 +38,29 @@ export const LoginReduxForm = reduxForm({
 const RegistrationForm = (props) => {
   const { onSignUp } = props;
   return (
-    <form onSubmit={props.handleSubmit(onSignUp)}>
-      <div className="form-group">
-        <label htmlFor="emailSignUpInput">Email address</label>
-        <Field name="email" required component="input" type="email" className="form-control" id="emailSignUpInput" placeholder="Enter email" />
+    <div className="app">
+      <div className="app-header">
+        <h1>To-do list</h1>
+        <form onSubmit={props.handleSubmit(onSignUp)} className="auth-form">
+          <div className="auth-input-group">
+            <label htmlFor="emailSignUpInput" className="auth-input-label">Email:</label>
+            <Field name="email" required component="input" type="email" className="auth-input" id="emailSignUpInput" placeholder="Email" />
+          </div>
+          <div className="auth-input-group">
+            <label htmlFor="passwordSignUpInput" className="auth-input-label">Password:</label>
+            <Field name="password" required component="input" type="password" className="auth-input" id="passwordSignUpInput" placeholder="Password" />
+          </div>
+          <div className="auth-button">
+            <button type="submit" className="btn">Submit</button>
+          </div>
+          <div className="auth-button">
+            <Link to="/">
+              <button type="button" className="btn">Cancel</button>
+            </Link>
+          </div>
+        </form>
       </div>
-      <div className="form-group">
-        <label htmlFor="passwordSignUpInput">Password</label>
-        <Field name="password" required component="input" type="password" className="form-control" id="passwordSignUpInput" placeholder="Password" />
-      </div>
-      <button type="submit" className="btn btn-primary">Sign up</button>
-      <Link to="/">
-        <button type="button" className="btn btn-primary ml-1">Cancel</button>
-      </Link>
-    </form>
+    </div>
   )
 }
 
@@ -59,8 +77,8 @@ class EditingForm extends React.Component {
   render() {
     const { handleSubmit, onEndEdit, dbId } = this.props;
     return (
-      <form className="form-inline" onSubmit={handleSubmit(onEndEdit(dbId))}>
-        <Field name="text" required component="input" type="text" className="border-0 pl-1" onBlur={handleSubmit(onEndEdit(dbId))} autoFocus />
+      <form className="edit-form" onSubmit={handleSubmit(onEndEdit(dbId))}>
+        <Field name="text" required component="input" type="text" className="edit-input" onBlur={handleSubmit(onEndEdit(dbId))} autoFocus />
       </form>
     )
   }

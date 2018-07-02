@@ -11,13 +11,17 @@ export default class Filters extends React.Component {
     const { filter } = this.props;
     const filters = ['all', 'active', 'finished'];
   
-    return filters.map(f => {
-      const className = cn({
-        btn: true,
-        'btn-sm': true,
-        'btn-secondary': f === filter,
-      });
-      return <button className={className} key={f} onClick={this.onToggleFilter}>{f}</button>;
-    })
+    return (
+      <div className="filters">
+        {filters.map(f => {
+          const className = cn({
+            btn: true,
+            filter: true,
+            'btn-toggled': f === filter,
+          });
+          return <button className={className} key={f} onClick={this.onToggleFilter}>{f}</button>;
+        })}
+      </div>
+    )
   }
 }

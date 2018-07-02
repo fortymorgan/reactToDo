@@ -5,7 +5,7 @@ import ToDoListContainer from '../containers/ToDoList';
 import NoAuth from './NoAuth.jsx';
 
 const App = () => (
-  <div className="jumbotron">
+  <div className="app-container">
     <Route exact path="/" component={NoAuth} />
     <Route path="/app" component={ToDoListContainer} />
     <Route path="/signin" component={LoginReduxFormContainer} />
