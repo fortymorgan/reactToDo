@@ -5,12 +5,8 @@ h1, p, ul {
 
 #container {
   display: grid;
-  grid-template-columns: 1fr 3fr 1fr;
+  grid-template-columns: 1fr 768px 1fr;
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
-}
-
-h1 {
-  padding-left: 50px;
 }
 
 .btn {
@@ -60,7 +56,7 @@ h1 {
 .app-header {
   display: flex;
   justify-content: space-between;
-  padding-top: 30px;
+  padding: 30px 25px 0;
   grid-row: 1 / 2;
 }
 
@@ -89,7 +85,7 @@ h1 {
 
 .app-body-header {
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 1fr 4fr;
   grid-column: 2 / 3;
   grid-row: 1 / 2;
 }
