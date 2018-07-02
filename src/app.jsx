@@ -12,18 +12,16 @@ import App from './components/App.jsx';
 import * as actions from './actions';
 
 export default () => {
-  const ext = window.__REDUX_DEVTOOLS_EXTENSION__;
-  const devtoolMiddleware = ext && ext();
-  
+  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
   const history = createHistory();
   const routingMiddleware = routerMiddleware(history);
 
   const store = createStore(
     reducers,
-    compose(
+    composeEnhancers(
       applyMiddleware(thunk),
       applyMiddleware(routingMiddleware),
-      devtoolMiddleware,
     ),
   )
   
