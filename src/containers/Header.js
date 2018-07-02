@@ -8,9 +8,10 @@ const mapStateToProps = (state) => {
   const itemsArray = Object.values(items);
   const dbIds = Object.keys(items);
 
+  const isListEmpty = itemsArray.length === 0;
   const isAllItemsFinished = itemsArray.length !== 0 && itemsArray.every(item => item.state === 'finished');
 
-  return { isAllItemsFinished, dbIds, toggleAllTaskState };
+  return { isAllItemsFinished, dbIds, toggleAllTaskState, isListEmpty };
 }
 
 export default connect(
