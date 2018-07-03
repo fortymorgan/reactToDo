@@ -7,14 +7,11 @@ export const ToDoListHeader = (props) => {
   const { currentUser, onSignOut } = props;
 
   return (
-    <div className="app-header">
-      <h1>To-do list</h1>
-      <div className="auth-user-signout">
-        <p className="username">{currentUser}</p>
-        <button type="button" className="btn" onClick={onSignOut}>
-          Sign out
-        </button>
-      </div>
+    <div className="auth-user-signout">
+      <p className="username">{currentUser}</p>
+      <button type="button" className="btn" onClick={onSignOut}>
+        Sign out
+      </button>
     </div>
   )
 }
