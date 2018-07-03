@@ -19,7 +19,7 @@ export const editTask = createAction('TASK_EDIT', dbId => ({ dbId }));
 
 export const signInRequest = createAction('SIGN_IN_REQUEST');
 export const signInSuccess = createAction('SIGN_IN_SUCCESS', ({ email }) => ({ email }));
-export const signInFailure = createAction('SIGN_IN_FAILURE');
+export const signInFailure = createAction('SIGN_IN_FAILURE', code => ({ code }));
 
 export const onSignIn = (values) => async (dispatch) => {
   const { email, password } = values;
@@ -29,13 +29,14 @@ export const onSignIn = (values) => async (dispatch) => {
     const credentials = await firebase.auth().signInWithEmailAndPassword(email, password);
     dispatch(signInSuccess(credentials.user));
   } catch (e) {
-    dispatch(signInFailure());
+    const error = await e;
+    dispatch(signInFailure(error.code));
   }
 };
 
 export const signUpRequest = createAction('SIGN_UP_REQUEST');
 export const signUpSuccess = createAction('SIGN_UP_SUCCESS');
-export const signUpFailure = createAction('SIGN_UP_FAILURE');
+export const signUpFailure = createAction('SIGN_UP_FAILURE', code => ({ code }));
 
 export const onSignUp = (values) => async (dispatch) => {
   const { email, password } = values;
@@ -46,9 +47,13 @@ export const onSignUp = (values) => async (dispatch) => {
     dispatch(signUpSuccess());
     dispatch(onSignIn(values))
   } catch (e) {
-    dispatch(signUpFailure());
+    const error = await e;
+    console.log(error);
+    dispatch(signUpFailure(error.code));
   }
 };
+
+export const clearAuthError = createAction('AUTH_ERROR_CLEAR');
 
 export const signOutRequest = createAction('SIGN_OUT_REQUEST');
 export const signOutSuccess = createAction('SIGN_OUT_SUCCESS');

@@ -13,6 +13,18 @@ const signInState = handleActions({
   },
 }, 'none');
 
+const signInError = handleActions({
+  [actions.signInFailure](state, { payload: { code } }) {
+    return code;
+  },
+  [actions.signInSuccess]() {
+    return 'none';
+  },
+  [actions.clearAuthError]() {
+    return 'none';
+  },
+}, 'none')
+
 const signUpState = handleActions({
   [actions.signUpRequest]() {
     return 'requested';
@@ -25,20 +37,21 @@ const signUpState = handleActions({
   },
 }, 'none');
 
-const signOutState = handleActions({
-  [actions.signOutRequest]() {
-    return 'requested';
+const signUpError = handleActions({
+  [actions.signUpFailure](state, { payload: { code } }) {
+    return code;
   },
-  [actions.signOutFailure]() {
-    return 'failed';
+  [actions.signUpSuccess]() {
+    return 'none';
   },
-  [actions.signOutSuccess]() {
-    return 'successed';
+  [actions.clearAuthError]() {
+    return 'none';
   },
 }, 'none');
 
 export default {
   signInState,
   signUpState,
-  signOutState,
+  signInError,
+  signUpError,
 }
