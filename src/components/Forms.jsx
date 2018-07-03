@@ -26,16 +26,16 @@ class LoginForm extends React.Component {
         password: null,
       },
       'auth/user-not-found': {
-        email: <p className="input-error">User not found</p>,
+        email: <p className="auth-error auth-error-email">User not found</p>,
         password: null,
       },
       'auth/invalid-email': {
-        email: <p className="input-error">Invalid email</p>,
+        email: <p className="auth-error auth-error-email">Invalid email</p>,
         password: null,
       },
       'auth/wrong-password': {
         email: null,
-        password: <p className="input-error">Wrong password</p>,
+        password: <p className="auth-error auth-error-passord">Wrong password</p>,
       }
     };
   
@@ -89,16 +89,16 @@ class RegistrationForm extends React.Component {
         password: null,
       },
       'auth/email-already-in-use': {
-        email: <p className="input-error">Email is already in use</p>,
+        email: <p className="auth-error auth-error-email">Email is already in use</p>,
         password: null,
       },
       'auth/invalid-email': {
-        email: <p className="input-error">Invalid email</p>,
+        email: <p className="auth-error auth-error-email">Invalid email</p>,
         password: null,
       },
       'auth/weak-password': {
         email: null,
-        password: <p className="input-error">Should be at least 6 characters</p>,
+        password: <p className="auth-error auth-error-password">Should be at least 6 characters</p>,
       }
     };
   

@@ -5,7 +5,7 @@ h1, p, ul {
 
 #container {
   display: grid;
-  grid-template-columns: 1fr 800px 1fr;
+  grid-template-columns: 1fr 920px 1fr;
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
 }
 
@@ -44,6 +44,12 @@ h1, p, ul {
   padding-right: 10px;
 }
 
+.input-error,
+.auth-error {
+  font-size: 10px;
+  color: coral;
+}
+
 .app {
   grid-column: 2 / 3;
   display: grid;
@@ -66,14 +72,25 @@ h1, p, ul {
 
 .auth-form {
   padding-bottom: 20px;
+  display: flex;
+  align-items: flex-start;
 }
 
 .auth-input {
-  max-width: 100px;
+  max-width: 120px;
 }
 
 .auth-button {
   padding-left: 10px;
+  align-self: center;
+}
+
+.auth-error-email {
+  padding: 4px 0 5px 68px;
+}
+
+.auth-error-password {
+  padding: 4px 0 5px 93px;
 }
 
 .app-body {
@@ -116,10 +133,7 @@ h1, p, ul {
 }
 
 .input-error {
-  /* margin-left: auto; */
-  font-size: 10px;
   padding: 4px 0 5px 93px;
-  color: coral;
 }
 
 .app-body-list {
