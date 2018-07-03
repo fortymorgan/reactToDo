@@ -1,13 +1,18 @@
 import React from 'react';
+import cn from 'classnames';
 
 export default class InputForm extends React.Component {
   onAdd = (e) => {
     e.preventDefault();
 
-    const { input, nextId, onTaskAdd } = this.props;
+    const { input, nextId, onTaskAdd, addEmptyTask } = this.props;
 
-    const newTask = { id: nextId, text: input, state: 'active', editing: false };
-    onTaskAdd(newTask);
+    if (input === '') {
+      addEmptyTask();
+    } else {
+      const newTask = { id: nextId, text: input, state: 'active', editing: false };
+      onTaskAdd(newTask);
+    }
   }
 
   onInput = (e) => {
@@ -16,15 +21,23 @@ export default class InputForm extends React.Component {
   }
 
   render() {
-    const { input, createTaskState } = this.props;
+    const { input, createTaskState, requestEmptyTask } = this.props;
 
     const disabled = createTaskState === 'requested';
+
+    const formClassName = cn({
+      'new-task-form': true,
+      'invalid-input': requestEmptyTask,
+    });
+
+    const inputError = requestEmptyTask ? <p className="input-error">Write something</p> : null;
   
     return (
-      <form className="new-task-form" onSubmit={this.onAdd}>
+      <form className={formClassName} onSubmit={this.onAdd}>
         <div className="new-task">
           <label htmlFor="new-task-input" className="new-task-label">New task:</label>
           <input type="text" id="new-task-input" className="new-task-input" placeholder="Enter new task" value={input} onChange={this.onInput} />
+          {inputError}
         </div>
         <button type="submit" className="btn" disabled={disabled}>Add</button>
       </form>

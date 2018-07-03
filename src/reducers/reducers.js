@@ -65,9 +65,19 @@ const currentUser = handleActions({
   },
 }, '');
 
+const requestEmptyTask = handleActions({
+  [actions.addEmptyTask]() {
+    return true;
+  },
+  [actions.changeInput]() {
+    return false;
+  },
+}, false);
+
 export default combineReducers({
   ...authStateReducers,
   ...tasksStateReducers,
+  requestEmptyTask,
   items,
   input,
   nextId,
