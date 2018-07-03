@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import ToDoList from '../components/ToDoList.jsx';
+import { ToDoListHeader } from '../components/ToDoList.jsx';
 import * as actionCreators from '../actions';
 
 const mapStateToProps = (state) => {
@@ -10,4 +10,4 @@ const mapStateToProps = (state) => {
 export default connect(
   mapStateToProps,
   actionCreators,
-)(ToDoList);
+)(ToDoListHeader);

@@ -44,11 +44,8 @@ h1, p, ul {
   padding-right: 10px;
 }
 
-.app-container {
-  grid-column: 2 / 3;
-}
-
 .app {
+  grid-column: 2 / 3;
   display: grid;
   grid-template-rows: auto auto;
 }
