@@ -48,112 +48,65 @@ export const onSignUp = (values) => async (dispatch) => {
     dispatch(onSignIn(values))
   } catch (e) {
     const error = await e;
-    console.log(error);
     dispatch(signUpFailure(error.code));
   }
 };
 
 export const clearAuthError = createAction('AUTH_ERROR_CLEAR');
 
-export const signOutRequest = createAction('SIGN_OUT_REQUEST');
-export const signOutSuccess = createAction('SIGN_OUT_SUCCESS');
-export const signOutFailure = createAction('SIGN_OUT_FAILURE');
-
-export const onSignOut = () => async (dispatch) => {
-  dispatch(signOutRequest());
-  try {
-    await firebase.auth().signOut();
-    dispatch(signOutSuccess());
-  } catch (e) {
-    dispatch(signOutFailure());
-  }
+export const onSignOut = () => async () => {
+  await firebase.auth().signOut();
 };
 
 export const createTaskRequest = createAction('TASK_CREATE_REQUEST');
 export const createTaskSuccess = createAction('TASK_CREATE_SUCCESS', task => ({ task }));
-export const createTaskFailure = createAction('TASK_CREATE_FAILURE');
 
 export const onTaskAdd = (value) => async (dispatch) => {
   dispatch(createTaskRequest());
-  try {
-    const userId = firebase.auth().currentUser.uid;
-    await firebase.database().ref('lists/' + userId).push(value);
-  } catch (e) {
-    dispatch(createTaskFailure());
-  }
+  const userId = firebase.auth().currentUser.uid;
+  await firebase.database().ref('lists/' + userId).push(value);
 };
 
-export const removeTaskRequest = createAction('TASK_REMOVE_REQUEST');
 export const removeTaskSuccess = createAction('TASK_REMOVE_SUCCESS', dbId => ({ dbId }));
-export const removeTaskFailure = createAction('TASK_REMOVE_FAILURE');
 
 export const onTaskRemove = (dbId) => async (dispatch) => {
-  dispatch(removeTaskRequest());
-  try {
-    const userId = firebase.auth().currentUser.uid;
-    await firebase.database().ref('lists/' + userId + '/' + dbId).remove();
-    dispatch(removeTaskSuccess(dbId));
-  } catch (e) {
-    dispatch(removeTaskFailure());
-  }
+  const userId = firebase.auth().currentUser.uid;
+  await firebase.database().ref('lists/' + userId + '/' + dbId).remove();
+  dispatch(removeTaskSuccess(dbId));
 };
 
-export const toggleTaskRequest = createAction('TASK_TOGGLE_REQUEST');
 export const toggleTaskSuccess = createAction('TASK_TOGGLE_SUCCESS', dbId => ({ dbId }));
-export const toggleTaskFailure = createAction('TASK_TOGGLE_FAILURE');
 
 export const onTaskToggle = (dbId, state) => async (dispatch) => {
-  dispatch(toggleTaskRequest());
-  try {
-    const userId = firebase.auth().currentUser.uid;
-    await firebase.database().ref('lists/' + userId + '/' + dbId + '/state').set(state);
-    dispatch(toggleTaskSuccess(dbId));
-  } catch (e) {
-    dispatch(toggleTaskFailure());
-  }
+  const userId = firebase.auth().currentUser.uid;
+  await firebase.database().ref('lists/' + userId + '/' + dbId + '/state').set(state);
+  dispatch(toggleTaskSuccess(dbId));
 }
 
 export const toggleAllTaskRequest = createAction('TASK_TOGGLE_ALL_REQUEST');
 export const toggleAllTaskSuccess = createAction('TASK_TOGGLE_ALL_SUCCESS', itemsState => ({ itemsState }));
-export const toggleAllTaskFailure = createAction('TASK_TOGGLE_ALL_FAILURE');
 
 export const onTaskToggleAll = (dbIds, state) => async (dispatch) => {
   dispatch(toggleAllTaskRequest());
-  try {
-    const userId = firebase.auth().currentUser.uid;
-    await Promise.all(dbIds.map(dbId => firebase.database().ref('lists/' + userId + '/' + dbId + '/state').set(state)))
-    dispatch(toggleAllTaskSuccess(state));
-  } catch (e) {
-    dispatch(toggleAllTaskFailure());
-  }
+  const userId = firebase.auth().currentUser.uid;
+  await Promise.all(dbIds.map(dbId => firebase.database().ref('lists/' + userId + '/' + dbId + '/state').set(state)))
+  dispatch(toggleAllTaskSuccess(state));
 }
 
 export const removeFinishedTasksRequest = createAction('TASKS_REMOVE_FINISHED_REQUEST');
 export const removeFinishedTasksSuccess = createAction('TASKS_REMOVE_FINISHED_SUCCESS');
-export const removeFinishedTasksFailure = createAction('TASKS_REMOVE_FINISHED_FAILURE');
 
 export const onRemoveFinishedTasks = (dbIds) => async (dispatch) => {
   dispatch(removeFinishedTasksRequest());
-  try {
-    const userId = firebase.auth().currentUser.uid;
-    await Promise.all(dbIds.map(dbId => firebase.database().ref('lists/' + userId + '/' + dbId).remove()))
-    dispatch(removeFinishedTasksSuccess());
-  } catch (e) {
-    dispatch(removeFinishedTasksFailure());
-  }
+  const userId = firebase.auth().currentUser.uid;
+  await Promise.all(dbIds.map(dbId => firebase.database().ref('lists/' + userId + '/' + dbId).remove()))
+  dispatch(removeFinishedTasksSuccess());
 }
 
-export const editTaskRequest = createAction('TASK_EDIT_REQUEST');
 export const editTaskSuccess = createAction('TASK_EDIT_SUCCESS', (dbId, text) => ({ dbId, text }));
-export const editTaskFailure = createAction('TASK_EDIT_FAILURE');
 
 export const onEditTask = (dbId, text) => async (dispatch) => {
-  dispatch(editTaskRequest());
-  try {
-    const userId = firebase.auth().currentUser.uid;
-    await firebase.database().ref('lists/' + userId + '/' + dbId + '/text').set(text);
-    dispatch(editTaskSuccess(dbId, text));
-  } catch (e) {
-    dispatch(editTaskFailure());
-  }
+  const userId = firebase.auth().currentUser.uid;
+  await firebase.database().ref('lists/' + userId + '/' + dbId + '/text').set(text);
+  dispatch(editTaskSuccess(dbId, text));
 }
