@@ -19,7 +19,7 @@ const ListItem = (props) => {
     <li className="list-item">
       <button className={toggleButtonClassName} onClick={onToggle(dbId, state === 'active' ? 'finished' : 'active')}>✓</button>
       {textField}
-      <button className="btn btn-remove" onClick={onRemove(dbId)}>🞩</button>
+      <button className="btn btn-remove" onClick={onRemove(dbId)}>×</button>
     </li>
   )
 }
