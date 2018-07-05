@@ -18,9 +18,9 @@ export default class Footer extends React.Component {
     
     return (
       <div className="app-body-footer">
-        <span>{`${activeItemsCount} items left`}</span>
+        <span className="active-items">{`${activeItemsCount} items left`}</span>
         <FiltersContainer />
-        <button className="btn btn-primary btn-sm" onClick={this.onClearFinished} disabled={disabled}>Clear finished</button>
+        <button className="btn btn-clear-finished" onClick={this.onClearFinished} disabled={disabled}>Clear finished</button>
       </div>
     )
   }

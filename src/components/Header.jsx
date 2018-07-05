@@ -15,6 +15,7 @@ export default class Header extends React.Component {
 
     const toggleAllButtonClassName = cn({
       btn: true,
+      'btn-check': true,
       'btn-toggled': isAllItemsFinished,
     });
 
@@ -22,7 +23,7 @@ export default class Header extends React.Component {
 
     const toggleAll = isListEmpty ? null :
       <div className="toggle-all">
-        <button type="button" className={toggleAllButtonClassName} onClick={this.onToggleAll} disabled={disabled}>Toggle all</button>
+        <button type="button" className={toggleAllButtonClassName} onClick={this.onToggleAll} disabled={disabled}>✓</button>
       </div>
  
     return(

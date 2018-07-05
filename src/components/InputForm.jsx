@@ -35,7 +35,6 @@ export default class InputForm extends React.Component {
     return (
       <form className={formClassName} onSubmit={this.onAdd}>
         <div className="new-task">
-          <label htmlFor="new-task-input" className="new-task-label">New task:</label>
           <input type="text" id="new-task-input" className="new-task-input" placeholder="Enter new task" value={input} onChange={this.onInput} />
           {inputError}
         </div>

@@ -1,11 +1,13 @@
 body,
-h1, p, ul {
+h1, p, ul,
+form {
   margin: 0;
 }
 
 #container {
-  display: grid;
-  grid-template-columns: 1fr 920px 1fr;
+  height: 100%;
+  display: flex;
+  justify-content: center;
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
 }
 
@@ -14,12 +16,9 @@ h1, p, ul {
   border: none;
   outline: none;
   padding: 5px 10px;
-  font-size: 14px;
+  font-size: 16px;
   border-radius: 3px;
-}
-
-.btn-toggled {
-  background-color: #49a4c2
+  cursor: pointer;
 }
 
 .auth-input,
@@ -29,19 +28,8 @@ h1, p, ul {
   border: 2px solid transparent;
   outline: none;
   padding: 5px 10px;
-  font-size: 14px;
+  font-size: 16px;
   border-radius: 3px;
-}
-
-.auth-input-label,
-.username,
-.new-task-label {
-  padding: 0 10px;
-}
-
-.auth-input-group,
-.new-task {
-  padding-right: 10px;
 }
 
 .input-error,
@@ -50,39 +38,42 @@ h1, p, ul {
   color: coral;
 }
 
-.app {
-  grid-column: 2 / 3;
-  display: grid;
-  grid-template-rows: auto auto;
-}
-
 .app-header {
   display: flex;
-  justify-content: space-between;
-  padding: 30px 25px 0;
-  grid-row: 1 / 2;
+  flex-direction: column;
+  align-items: center;
 }
 
-.auth-buttons,
-.auth-form,
+h1 {
+  padding: 25px 0;
+  font-size: 52px;
+}
+
+.auth-buttons {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  padding-top: 5px;
+}
+
+.auth-input-group {
+  width: 100%;
+  padding-bottom: 15px;
+}
+
 .auth-user-signout {
   display: flex;
   align-items: center;
 }
 
 .auth-form {
-  padding-bottom: 20px;
   display: flex;
+  flex-direction: column;
   align-items: flex-start;
 }
 
 .auth-input {
-  max-width: 120px;
-}
-
-.auth-button {
-  padding-left: 10px;
-  align-self: center;
+  width: 100%;
 }
 
 .auth-error-email {
@@ -93,31 +84,44 @@ h1, p, ul {
   padding: 4px 0 5px 93px;
 }
 
+.username {
+  padding: 0 10px;
+}
+
 .app-body {
-  grid-row: 2 / 3;
   padding-top: 30px;
   display: grid;
-  grid-template-columns: 1fr 4fr 1fr;
+  grid-template-columns: 640px;
   grid-template-rows: auto auto auto;
 }
 
 .app-body-header {
   display: grid;
-  grid-template-columns: 1fr 4fr;
-  grid-column: 2 / 3;
+  grid-template-columns: 1fr 20fr;
   grid-row: 1 / 2;
 }
 
 .toggle-all {
   grid-column: 1 / 2;
+  align-self: center;
+  padding-bottom: 20px;
+}
+
+.new-task {
+  padding: 0 10px;
+  width: 100%;
 }
 
 .new-task-form {
   grid-column: 2 / 3;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
   padding-bottom: 20px;
+}
+
+.new-task-input {
+  width: 100%;
 }
 
 .invalid-input {
@@ -138,9 +142,7 @@ h1, p, ul {
 
 .app-body-list {
   list-style: none;
-  padding-top: 20px;
   padding-left: 0;
-  grid-column: 2 / 3;
   grid-row: 2 / 3;
 }
 
@@ -164,16 +166,26 @@ h1, p, ul {
 
 .btn-remove {
   margin-left: auto;
-  background-color: #ff7f50;
+  background: none;
+  color: red;
 }
 
-.btn-check,
+.btn-check {
+  color: white;
+  background: none;
+  border: 1px solid black;
+  padding: 0 4px;
+}
+
+.btn-toggled {
+  color: black;
+}
+
 .btn-remove {
   padding: 2px 5px;
 }
 
 .app-body-footer {
-  grid-column: 2 / 3;
   grid-row: 3 / 4;
   padding-top: 20px;
   display: flex;
@@ -181,6 +193,36 @@ h1, p, ul {
   align-items: center;
 }
 
-.filter {
-  margin-right: 10px;
+.btn-filter {
+  font-size: 14px;
+  margin: 0 5px;
+  padding: 2px 5px;
+}
+
+.toggled-filter {
+  background-color: #49a4c2
+}
+
+
+.active-items {
+  font-size: 12px;
+}
+
+.btn-clear-finished {
+  padding: 0;
+  background: none;
+  text-decoration: underline;
+  font-size: 12px;
+}
+
+@media screen and (max-width: 640px) {
+  .app-body {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .app-body {
+    grid-template-columns: 320px;
+  }
 }

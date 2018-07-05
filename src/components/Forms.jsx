@@ -42,22 +42,22 @@ class LoginForm extends React.Component {
     return (
       <form onSubmit={this.props.handleSubmit(onSignIn)} className={formClassName}>
         <div className="auth-input-group">
-          <label htmlFor="emailSignInInput" className="auth-input-label">Email:</label>
           <Field name="email" required component="input" type="email" className="auth-input" id="emailSignInInput" placeholder="Email" />
           {errorMessages[signInError].email}
         </div>
         <div className="auth-input-group">
-          <label htmlFor="passwordSignInInput" className="auth-input-label">Password:</label>
           <Field name="password" required component="input" type="password" className="auth-input" id="passwordSignInInput" placeholder="Password" />
           {errorMessages[signInError].password}
         </div>
-        <div className="auth-button">
-          <button type="submit" className="btn" disabled={disabled}>Submit</button>
-        </div>
-        <div className="auth-button">
-          <Link to="/">
-            <button type="button" className="btn" disabled={disabled}>Cancel</button>
-          </Link>
+        <div className="auth-buttons">
+          <div className="auth-button">
+            <button type="submit" className="btn" disabled={disabled}>Submit</button>
+          </div>
+          <div className="auth-button">
+            <Link to="/">
+              <button type="button" className="btn" disabled={disabled}>Cancel</button>
+            </Link>
+          </div>
         </div>
       </form>
     )
@@ -107,22 +107,22 @@ class RegistrationForm extends React.Component {
     return (
       <form onSubmit={this.props.handleSubmit(onSignUp)} className={formClassName}>
         <div className="auth-input-group">
-          <label htmlFor="emailSignUpInput" className="auth-input-label">Email:</label>
           <Field name="email" required component="input" type="email" className="auth-input" id="emailSignUpInput" placeholder="Email" />
           {errorMessages[signUpError].email}
         </div>
         <div className="auth-input-group">
-          <label htmlFor="passwordSignUpInput" className="auth-input-label">Password:</label>
           <Field name="password" required component="input" type="password" className="auth-input" id="passwordSignUpInput" placeholder="Password" />
           {errorMessages[signUpError].password}
         </div>
-        <div className="auth-button">
-          <button type="submit" className="btn" disabled={disabled}>Submit</button>
-        </div>
-        <div className="auth-button">
-          <Link to="/">
-            <button type="button" className="btn" disabled={disabled}>Cancel</button>
-          </Link>
+        <div className="auth-buttons">
+          <div className="auth-button">
+            <button type="submit" className="btn" disabled={disabled}>Submit</button>
+          </div>
+          <div className="auth-button">
+            <Link to="/">
+              <button type="button" className="btn" disabled={disabled}>Cancel</button>
+            </Link>
+          </div>
         </div>
       </form>
     )

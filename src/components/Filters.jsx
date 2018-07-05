@@ -16,8 +16,8 @@ export default class Filters extends React.Component {
         {filters.map(f => {
           const className = cn({
             btn: true,
-            filter: true,
-            'btn-toggled': f === filter,
+            'btn-filter': true,
+            'toggled-filter': f === filter,
           });
           return <button className={className} key={f} onClick={this.onToggleFilter}>{f}</button>;
         })}
