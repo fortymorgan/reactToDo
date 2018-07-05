@@ -215,14 +215,26 @@ h1 {
   font-size: 12px;
 }
 
-@media screen and (max-width: 640px) {
+@media screen and (max-width: 660px) {
   .app-body {
-    grid-template-columns: 1fr;
+    grid-template-columns: 10px 1fr 10px;
+  }
+
+  .app-body-header,
+  .app-body-list,
+  .app-body-footer {
+    grid-column: 2 / 3;
   }
 }
 
 @media screen and (max-width: 320px) {
   .app-body {
-    grid-template-columns: 320px;
+    grid-template-columns: 300px;
+  }
+
+  .app-body-header,
+  .app-body-list,
+  .app-body-footer {
+    grid-column: 1 / 2;
   }
 }
