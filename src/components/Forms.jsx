@@ -3,21 +3,15 @@ import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
 
-class LoginForm extends React.Component {
-  componentWillUnmount() {
-    const { clearAuthError } = this.props;
+class AuthForm extends React.Component {
+  onSubmit = handler => values => handler(values)
 
-    clearAuthError();
-  }
-  
   render() {
-    const { onSignIn, signInState, signInError } = this.props;
-  
-    const disabled = signInState === 'requested';
+    const { handler, submitting, authError } = this.props;
 
     const formClassName = cn({
       'auth-form': true,
-      'invalid-input': signInError !== 'none',
+      'invalid-input': authError !== 'none',
     });
   
     const errorMessages = {
@@ -26,36 +20,44 @@ class LoginForm extends React.Component {
         password: null,
       },
       'auth/user-not-found': {
-        email: <p className="auth-error auth-error-email">User not found</p>,
+        email: <p className="auth-error">User not found</p>,
         password: null,
       },
       'auth/invalid-email': {
-        email: <p className="auth-error auth-error-email">Invalid email</p>,
+        email: <p className="auth-error">Invalid email</p>,
         password: null,
       },
       'auth/wrong-password': {
         email: null,
-        password: <p className="auth-error auth-error-passord">Wrong password</p>,
+        password: <p className="auth-error">Wrong password</p>,
+      },
+      'auth/email-already-in-use': {
+        email: <p className="auth-error">Email is already in use</p>,
+        password: null,
+      },
+      'auth/weak-password': {
+        email: null,
+        password: <p className="auth-error">Should be at least 6 characters</p>,
       }
     };
   
     return (
-      <form onSubmit={this.props.handleSubmit(onSignIn)} className={formClassName}>
+      <form onSubmit={this.props.handleSubmit(this.onSubmit(handler))} className={formClassName}>
         <div className="auth-input-group">
-          <Field name="email" required component="input" type="email" className="auth-input" id="emailSignInInput" placeholder="Email" />
-          {errorMessages[signInError].email}
+          <Field name="email" required component="input" type="email" className="auth-input" placeholder="Email" />
+          {errorMessages[authError].email}
         </div>
         <div className="auth-input-group">
-          <Field name="password" required component="input" type="password" className="auth-input" id="passwordSignInInput" placeholder="Password" />
-          {errorMessages[signInError].password}
+          <Field name="password" required component="input" type="password" className="auth-input" placeholder="Password" />
+          {errorMessages[authError].password}
         </div>
         <div className="auth-buttons">
           <div className="auth-button">
-            <button type="submit" className="btn" disabled={disabled}>Submit</button>
+            <button type="submit" className="btn" disabled={submitting}>Submit</button>
           </div>
           <div className="auth-button">
             <Link to="/">
-              <button type="button" className="btn" disabled={disabled}>Cancel</button>
+              <button type="button" className="btn" disabled={submitting}>Cancel</button>
             </Link>
           </div>
         </div>
@@ -64,74 +66,41 @@ class LoginForm extends React.Component {
   }
 }
 
-export const LoginReduxForm = reduxForm({
-  form: 'login',
-})(LoginForm);
+const AuthReduxForm = reduxForm({
+  form: 'sign',
+})(AuthForm);
 
-class RegistrationForm extends React.Component {
+export class SignInForm extends React.Component {
   componentWillUnmount() {
     const { clearAuthError } = this.props;
 
     clearAuthError();
   }
-
+  
   render() {
-    const { onSignUp, signUpState, signUpError } = this.props;
-  
-    const disabled = signUpState === 'requested';
-  
-    const errorMessages = {
-      none: {
-        email: null,
-        password: null,
-      },
-      'auth/email-already-in-use': {
-        email: <p className="auth-error auth-error-email">Email is already in use</p>,
-        password: null,
-      },
-      'auth/invalid-email': {
-        email: <p className="auth-error auth-error-email">Invalid email</p>,
-        password: null,
-      },
-      'auth/weak-password': {
-        email: null,
-        password: <p className="auth-error auth-error-password">Should be at least 6 characters</p>,
-      }
-    };
-  
-    const formClassName = cn({
-      'auth-form': true,
-      'invalid-input': signUpError !== 'none',
-    });
-    
+    const { onSignIn, authError } = this.props;
+
     return (
-      <form onSubmit={this.props.handleSubmit(onSignUp)} className={formClassName}>
-        <div className="auth-input-group">
-          <Field name="email" required component="input" type="email" className="auth-input" id="emailSignUpInput" placeholder="Email" />
-          {errorMessages[signUpError].email}
-        </div>
-        <div className="auth-input-group">
-          <Field name="password" required component="input" type="password" className="auth-input" id="passwordSignUpInput" placeholder="Password" />
-          {errorMessages[signUpError].password}
-        </div>
-        <div className="auth-buttons">
-          <div className="auth-button">
-            <button type="submit" className="btn" disabled={disabled}>Submit</button>
-          </div>
-          <div className="auth-button">
-            <Link to="/">
-              <button type="button" className="btn" disabled={disabled}>Cancel</button>
-            </Link>
-          </div>
-        </div>
-      </form>
+      <AuthReduxForm handler={onSignIn} authError={authError} />
     )
   }
 }
 
-export const RegistrationReduxForm = reduxForm({
-  form: 'registration',
-})(RegistrationForm);
+export class SignUpForm extends React.Component {
+  componentWillUnmount() {
+    const { clearAuthError } = this.props;
+
+    clearAuthError();
+  }
+  
+  render() {
+    const { onSignUp, authError } = this.props;
+
+    return (
+      <AuthReduxForm handler={onSignUp} authError={authError} />
+    )
+  }
+}
 
 class EditingForm extends React.Component {
   constructor(props) {

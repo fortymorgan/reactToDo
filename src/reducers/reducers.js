@@ -4,7 +4,6 @@ import { reducer as formReducer } from 'redux-form';
 import { routerReducer } from 'react-router-redux';
 import _ from 'lodash';
 import * as actions from '../actions';
-import authStateReducers from './authState';
 import tasksStateReducers from './tasksState';
 
 const items = handleActions({
@@ -74,9 +73,18 @@ const requestEmptyTask = handleActions({
   },
 }, false);
 
+const authError = handleActions({
+  [actions.authFailure](state, { payload: { code } }) {
+    return code;
+  },
+  [actions.clearAuthError]() {
+    return 'none';
+  }
+}, 'none')
+
 export default combineReducers({
-  ...authStateReducers,
   ...tasksStateReducers,
+  authError,
   requestEmptyTask,
   items,
   input,

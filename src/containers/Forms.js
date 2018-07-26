@@ -1,25 +1,19 @@
 import { connect } from 'react-redux';
-import { LoginReduxForm, RegistrationReduxForm, EditingReduxForm } from '../components/Forms.jsx';
+import { SignInForm, SignUpForm } from '../components/Forms.jsx';
 import * as actionCreators from '../actions';
 
-const signInMapStateToProps = (state) => {
-  const { signInState, signInError } = state;
+const mapStateToProps = (state) => {
+  const { authError } = state;
 
-  return { signInState, signInError };
+  return { authError };
 }
 
-const signUpMapStateToProps = (state) => {
-  const { signUpState, signUpError } = state;
-
-  return { signUpState, signUpError };
-}
-
-export const LoginReduxFormContainer = connect(
-  signInMapStateToProps,
+export const SignInFormContainer = connect(
+  mapStateToProps,
   actionCreators,
-)(LoginReduxForm);
+)(SignInForm);
 
-export const RegistrationReduxFormContainer = connect(
-  signUpMapStateToProps,
+export const SignUpFormContainer = connect(
+  mapStateToProps,
   actionCreators,
-)(RegistrationReduxForm);
+)(SignUpForm);

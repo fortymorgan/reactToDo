@@ -1,6 +1,6 @@
 body,
 h1, p, ul,
-form {
+form, h2 {
   margin: 0;
 }
 
@@ -76,12 +76,15 @@ h1 {
   width: 100%;
 }
 
-.auth-error-email {
-  padding: 4px 0 5px 68px;
+.auth-error {
+  padding: 4px 0 5px 93px;
 }
 
-.auth-error-password {
-  padding: 4px 0 5px 93px;
+.auth-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 20px;
 }
 
 .username {
