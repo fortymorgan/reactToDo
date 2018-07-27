@@ -35,7 +35,7 @@ form, h2 {
 .auth-error {
   font-size: 10px;
   color: coral;
-  padding: 4px 0 5px;
+  padding: 2px 0;
 }
 
 .app-header {
@@ -145,10 +145,6 @@ h1 {
 
 .invalid-input input {
   border: 2px solid #ff7f50;
-}
-
-.invalid-input button {
-  margin-bottom: 21px;
 }
 
 .app-body-list {

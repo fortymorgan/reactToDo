@@ -8,11 +8,6 @@ class AuthForm extends React.Component {
 
   render() {
     const { handler, submitting, authError } = this.props;
-
-    const formClassName = cn({
-      'auth-form': true,
-      'invalid-input': authError !== 'none',
-    });
   
     const errorMessages = {
       none: {
@@ -40,14 +35,25 @@ class AuthForm extends React.Component {
         password: <p className="auth-error">Should be at least 6 characters</p>,
       }
     };
-  
+
+    const inputClassName = {
+      email: cn({
+        'auth-input-group': true,
+        'invalid-input': errorMessages[authError].email !== null,
+      }),
+      password: cn({
+        'auth-input-group': true,
+        'invalid-input': errorMessages[authError].password !== null,
+      })
+    };
+
     return (
-      <form onSubmit={this.props.handleSubmit(this.onSubmit(handler))} className={formClassName}>
-        <div className="auth-input-group">
+      <form onSubmit={this.props.handleSubmit(this.onSubmit(handler))} className="auth-form">
+        <div className={inputClassName.email}>
           <Field name="email" required component="input" type="email" className="auth-input" placeholder="Email" />
           {errorMessages[authError].email}
         </div>
-        <div className="auth-input-group">
+        <div className={inputClassName.password}>
           <Field name="password" required component="input" type="password" className="auth-input" placeholder="Password" />
           {errorMessages[authError].password}
         </div>
