@@ -7,7 +7,7 @@ import { Router } from 'react-router';
 import { syncHistoryWithStore, push, routerMiddleware } from 'react-router-redux';
 import createHistory from "history/createBrowserHistory";
 import firebase from 'firebase';
-import reducers from './reducers/reducers';
+import reducers from './reducers';
 import App from './components/App.jsx';
 import * as actions from './actions';
 
@@ -45,9 +45,16 @@ export default () => {
       const list = snapshot.val();
       store.dispatch(actions.updateStateOnLogin(list));
 
-      firebase.database().ref('lists/' + user.uid).on('child_added', (child) => {
+      const ref = firebase.database().ref('lists/' + user.uid);
+      ref.on('child_added', (child) => {
         store.dispatch(actions.createTaskSuccess({ [child.key]: child.val() }));
-      })
+      });
+      ref.on('child_removed', (child) => {
+        store.dispatch(actions.removeTaskSuccess(child.key))
+      });
+      ref.on('child_changed', (child) => {
+        store.dispatch(actions.changeTaskSuccess({ [child.key]: child.val() }))
+      });
     } else {
       store.dispatch(push('/'));
     }

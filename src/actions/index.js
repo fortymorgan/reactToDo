@@ -50,11 +50,9 @@ export const onSignOut = () => async () => {
   await firebase.auth().signOut();
 };
 
-export const createTaskRequest = createAction('TASK_CREATE_REQUEST');
 export const createTaskSuccess = createAction('TASK_CREATE_SUCCESS', task => ({ task }));
 
 export const onTaskAdd = (value) => async (dispatch) => {
-  dispatch(createTaskRequest());
   const userId = firebase.auth().currentUser.uid;
   await firebase.database().ref('lists/' + userId).push(value);
 };
@@ -64,41 +62,26 @@ export const removeTaskSuccess = createAction('TASK_REMOVE_SUCCESS', dbId => ({ 
 export const onTaskRemove = (dbId) => async (dispatch) => {
   const userId = firebase.auth().currentUser.uid;
   await firebase.database().ref('lists/' + userId + '/' + dbId).remove();
-  dispatch(removeTaskSuccess(dbId));
 };
 
-export const toggleTaskSuccess = createAction('TASK_TOGGLE_SUCCESS', dbId => ({ dbId }));
+export const onRemoveFinishedTasks = (dbIds) => async (dispatch) => {
+  const userId = firebase.auth().currentUser.uid;
+  await Promise.all(dbIds.map(dbId => firebase.database().ref('lists/' + userId + '/' + dbId).remove()))
+};
+
+export const changeTaskSuccess = createAction('TASK_CHANGE_SUCCESS', task => ({ task }));
 
 export const onTaskToggle = (dbId, state) => async (dispatch) => {
   const userId = firebase.auth().currentUser.uid;
   await firebase.database().ref('lists/' + userId + '/' + dbId + '/state').set(state);
-  dispatch(toggleTaskSuccess(dbId));
-}
-
-export const toggleAllTaskRequest = createAction('TASK_TOGGLE_ALL_REQUEST');
-export const toggleAllTaskSuccess = createAction('TASK_TOGGLE_ALL_SUCCESS', itemsState => ({ itemsState }));
+};
 
 export const onTaskToggleAll = (dbIds, state) => async (dispatch) => {
-  dispatch(toggleAllTaskRequest());
   const userId = firebase.auth().currentUser.uid;
   await Promise.all(dbIds.map(dbId => firebase.database().ref('lists/' + userId + '/' + dbId + '/state').set(state)))
-  dispatch(toggleAllTaskSuccess(state));
-}
-
-export const removeFinishedTasksRequest = createAction('TASKS_REMOVE_FINISHED_REQUEST');
-export const removeFinishedTasksSuccess = createAction('TASKS_REMOVE_FINISHED_SUCCESS');
-
-export const onRemoveFinishedTasks = (dbIds) => async (dispatch) => {
-  dispatch(removeFinishedTasksRequest());
-  const userId = firebase.auth().currentUser.uid;
-  await Promise.all(dbIds.map(dbId => firebase.database().ref('lists/' + userId + '/' + dbId).remove()))
-  dispatch(removeFinishedTasksSuccess());
-}
-
-export const editTaskSuccess = createAction('TASK_EDIT_SUCCESS', (dbId, text) => ({ dbId, text }));
+};
 
 export const onEditTask = (dbId, text) => async (dispatch) => {
   const userId = firebase.auth().currentUser.uid;
   await firebase.database().ref('lists/' + userId + '/' + dbId + '/text').set(text);
-  dispatch(editTaskSuccess(dbId, text));
-}
+};

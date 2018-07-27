@@ -4,7 +4,6 @@ import { reducer as formReducer } from 'redux-form';
 import { routerReducer } from 'react-router-redux';
 import _ from 'lodash';
 import * as actions from '../actions';
-import tasksStateReducers from './tasksState';
 
 const items = handleActions({
   [actions.updateStateOnLogin](state, { payload: { items } }) {
@@ -16,21 +15,11 @@ const items = handleActions({
   [actions.removeTaskSuccess](state, { payload: { dbId } }) {
     return _.omit(state, dbId);
   },
-  [actions.toggleTaskSuccess](state, { payload: { dbId } }) {
-    return _.mapValues(state, (value, key) => key !== dbId ? value :
-      { ...value, state: value.state === 'active' ? 'finished' : 'active' });
-  },
-  [actions.toggleAllTaskSuccess](state, { payload: { itemsState } }) {
-    return _.mapValues(state, value => ({ ...value, state: itemsState }));
-  },
-  [actions.removeFinishedTasksSuccess](state) {
-    return _.omitBy(state, value => value.state === 'finished');
+  [actions.changeTaskSuccess](state, { payload: { task } }) {
+    return { ...state, ...task };
   },
   [actions.editTask](state, { payload: { dbId } }) {
-    return _.mapValues(state, (value, key) => key === dbId ? { ...value, editing: true } : value);
-  },
-  [actions.editTaskSuccess](state, { payload: { dbId, text } }) {
-    return _.mapValues(state, (value, key) => key === dbId ? { ...value, editing: false, text } : value);
+    return { ...state, [dbId]: { ...state[dbId], editing: true } };
   },
 }, {});
 
@@ -80,7 +69,6 @@ const withoutAuth = handleActions({
 }, false);
 
 export default combineReducers({
-  ...tasksStateReducers,
   authError,
   requestEmptyTask,
   items,

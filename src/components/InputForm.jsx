@@ -21,9 +21,7 @@ export default class InputForm extends React.Component {
   }
 
   render() {
-    const { input, createTaskState, requestEmptyTask } = this.props;
-
-    const disabled = createTaskState === 'requested';
+    const { input, requestEmptyTask } = this.props;
 
     const formClassName = cn({
       'new-task-form': true,
@@ -38,7 +36,7 @@ export default class InputForm extends React.Component {
           <input type="text" id="new-task-input" className="new-task-input" placeholder="Enter new task" value={input} onChange={this.onInput} />
           {inputError}
         </div>
-        <button type="submit" className="btn" disabled={disabled}>Add</button>
+        <button type="submit" className="btn">Add</button>
       </form>
     )
   }
