@@ -32,10 +32,10 @@ form, h2 {
   border-radius: 3px;
 }
 
-.input-error,
 .auth-error {
   font-size: 10px;
   color: coral;
+  padding: 4px 0 5px;
 }
 
 .app-header {
@@ -53,7 +53,8 @@ h1 {
   width: 100%;
 }
 
-.auth-buttons {
+.auth-buttons,
+.start-app {
   display: flex;
   justify-content: space-around;
   width: 100%;
@@ -89,10 +90,6 @@ h1 {
 
 .auth-input {
   width: 100%;
-}
-
-.auth-error {
-  padding: 4px 0 5px 93px;
 }
 
 .auth-header {
@@ -152,10 +149,6 @@ h1 {
 
 .invalid-input button {
   margin-bottom: 21px;
-}
-
-.input-error {
-  padding: 4px 0 5px 93px;
 }
 
 .app-body-list {

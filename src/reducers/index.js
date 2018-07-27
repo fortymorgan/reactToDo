@@ -23,15 +23,6 @@ const items = handleActions({
   },
 }, {});
 
-const input = handleActions({
-  [actions.createTaskSuccess]() {
-    return '';
-  },
-  [actions.changeInput](state, { payload: { text } }) {
-    return text;
-  },
-}, '');
-
 const filter = handleActions({
   [actions.toggleFilter](state, { payload: { filter } }) {
     return filter;
@@ -43,15 +34,6 @@ const currentUser = handleActions({
     return email;
   },
 }, '');
-
-const requestEmptyTask = handleActions({
-  [actions.addEmptyTask]() {
-    return true;
-  },
-  [actions.changeInput]() {
-    return false;
-  },
-}, false);
 
 const authError = handleActions({
   [actions.authFailure](state, { payload: { code } }) {
@@ -70,9 +52,7 @@ const withoutAuth = handleActions({
 
 export default combineReducers({
   authError,
-  requestEmptyTask,
   items,
-  input,
   filter,
   currentUser,
   withoutAuth,

@@ -1,4 +1,5 @@
 import { createAction } from 'redux-actions';
+import { reset } from 'redux-form'; 
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
@@ -14,8 +15,6 @@ export const updateStateOnLogin = createAction('TASK_LIST_UPDATE', (items) => {
 });
 
 export const toggleNoAuth = createAction('NO_AUTH_TOGGLE');
-
-export const addEmptyTask = createAction('EMPTY_TASK_ADD');
 
 export const editTask = createAction('TASK_EDIT', dbId => ({ dbId }));
 
@@ -57,33 +56,34 @@ export const createTaskSuccess = createAction('TASK_CREATE_SUCCESS', task => ({ 
 export const onTaskAdd = (value) => async (dispatch) => {
   const userId = firebase.auth().currentUser.uid;
   await firebase.database().ref('lists/' + userId).push(value);
+  dispatch(reset('newTask'));
 };
 
 export const removeTaskSuccess = createAction('TASK_REMOVE_SUCCESS', dbId => ({ dbId }));
 
-export const onTaskRemove = (dbId) => async (dispatch) => {
+export const onTaskRemove = (dbId) => async () => {
   const userId = firebase.auth().currentUser.uid;
   await firebase.database().ref('lists/' + userId + '/' + dbId).remove();
 };
 
-export const onRemoveFinishedTasks = (dbIds) => async (dispatch) => {
+export const onRemoveFinishedTasks = (dbIds) => async () => {
   const userId = firebase.auth().currentUser.uid;
   await Promise.all(dbIds.map(dbId => firebase.database().ref('lists/' + userId + '/' + dbId).remove()))
 };
 
 export const changeTaskSuccess = createAction('TASK_CHANGE_SUCCESS', task => ({ task }));
 
-export const onTaskToggle = (dbId, state) => async (dispatch) => {
+export const onTaskToggle = (dbId, state) => async () => {
   const userId = firebase.auth().currentUser.uid;
   await firebase.database().ref('lists/' + userId + '/' + dbId + '/state').set(state);
 };
 
-export const onTaskToggleAll = (dbIds, state) => async (dispatch) => {
+export const onTaskToggleAll = (dbIds, state) => async () => {
   const userId = firebase.auth().currentUser.uid;
   await Promise.all(dbIds.map(dbId => firebase.database().ref('lists/' + userId + '/' + dbId + '/state').set(state)))
 };
 
-export const onEditTask = (dbId, text) => async (dispatch) => {
+export const onEditTask = (dbId, text) => async () => {
   const userId = firebase.auth().currentUser.uid;
   await firebase.database().ref('lists/' + userId + '/' + dbId + '/text').set(text);
 };

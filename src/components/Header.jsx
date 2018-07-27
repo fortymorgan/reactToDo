@@ -1,6 +1,6 @@
 import React from 'react';
 import cn from 'classnames';
-import InputFormContainer from '../containers/InputForm';
+import NewTask from '../containers/NewTask';
 
 export default class Header extends React.Component {
   onToggleAll = () => {
@@ -27,7 +27,7 @@ export default class Header extends React.Component {
     return(
       <div className="app-body-header">
         {toggleAll}
-        <InputFormContainer />
+        <NewTask />
       </div>
     )
   }
