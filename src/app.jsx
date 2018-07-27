@@ -6,8 +6,10 @@ import { Provider } from 'react-redux';
 import { Router } from 'react-router';
 import { syncHistoryWithStore, push, routerMiddleware } from 'react-router-redux';
 import createHistory from "history/createBrowserHistory";
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 import reducers from './reducers';
+import 'firebase/auth';
+import 'firebase/database';
 import App from './components/App.jsx';
 import * as actions from './actions';
 

@@ -1,5 +1,7 @@
 import { createAction } from 'redux-actions';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/database';
 
 export const changeInput = createAction('INPUT_CHANGE', text => ({ text }));
 export const toggleFilter = createAction('FILTER_TOGGLE', filter => ({ filter }));
