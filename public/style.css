@@ -241,3 +241,14 @@ h1 {
     grid-column: 1 / 2;
   }
 }
+
+@media screen and (max-width: 400px) {
+  h2 {
+    padding-bottom: 10px;
+  }
+
+  .auth-header {
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+}
