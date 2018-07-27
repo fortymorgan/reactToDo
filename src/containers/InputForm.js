@@ -3,9 +3,9 @@ import InputForm from '../components/InputForm.jsx';
 import * as actionCreators from '../actions';
 
 const mapStateToProps = (state) => {
-  const { input, nextId, createTaskState, requestEmptyTask } = state;
+  const { input, createTaskState, requestEmptyTask } = state;
 
-  return { input, nextId, createTaskState, requestEmptyTask };
+  return { input, createTaskState, requestEmptyTask };
 }
 
 export default connect(

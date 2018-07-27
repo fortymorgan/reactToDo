@@ -43,15 +43,6 @@ const input = handleActions({
   },
 }, '');
 
-const nextId = handleActions({
-  [actions.updateStateOnLogin](state, { payload: { nextId } }) {
-    return nextId;
-  },
-  [actions.createTaskSuccess](state) {
-    return state + 1;
-  },
-}, 0);
-
 const filter = handleActions({
   [actions.toggleFilter](state, { payload: { filter } }) {
     return filter;
@@ -88,7 +79,6 @@ export default combineReducers({
   requestEmptyTask,
   items,
   input,
-  nextId,
   filter,
   currentUser,
   form: formReducer,

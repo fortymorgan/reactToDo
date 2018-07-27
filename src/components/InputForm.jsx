@@ -5,12 +5,12 @@ export default class InputForm extends React.Component {
   onAdd = (e) => {
     e.preventDefault();
 
-    const { input, nextId, onTaskAdd, addEmptyTask } = this.props;
+    const { input, onTaskAdd, addEmptyTask } = this.props;
 
     if (input === '') {
       addEmptyTask();
     } else {
-      const newTask = { id: nextId, text: input, state: 'active', editing: false };
+      const newTask = { text: input, state: 'active', editing: false };
       onTaskAdd(newTask);
     }
   }

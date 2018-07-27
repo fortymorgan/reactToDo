@@ -61,7 +61,7 @@ export default class ListItems extends React.Component {
 
     return (
       <ul className="app-body-list">
-        {items.map(item => <ListItem item={item} key={item.id} handlers={handlers} />)}
+        {items.map(item => <ListItem item={item} key={item.dbId} handlers={handlers} />)}
       </ul>
     )
   }

@@ -5,12 +5,10 @@ export const changeInput = createAction('INPUT_CHANGE', text => ({ text }));
 export const toggleFilter = createAction('FILTER_TOGGLE', filter => ({ filter }));
 export const updateStateOnLogin = createAction('TASK_LIST_UPDATE', (items) => {
   if (!items) {
-    return { items: {}, nextId: 0 };
-  } else {
-    const itemsValues = Object.values(items).sort((a, b) => a.id - b.id);
-    const nextId = +itemsValues[itemsValues.length - 1].id + 1;
-    return { items, nextId };
-  }
+    return { items: {} };
+  } 
+  
+  return { items };
 });
 
 export const addEmptyTask = createAction('EMPTY_TASK_ADD');
