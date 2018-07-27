@@ -205,7 +205,7 @@ h1 {
 
 .app-body-footer {
   grid-row: 3 / 4;
-  padding-top: 20px;
+  padding: 20px 0;
   display: flex;
   justify-content: space-around;
   align-items: center;
