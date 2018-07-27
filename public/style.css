@@ -230,7 +230,7 @@ h1 {
   }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 319px) {
   .app-body {
     grid-template-columns: 300px;
   }
