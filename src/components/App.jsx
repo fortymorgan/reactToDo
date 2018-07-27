@@ -1,9 +1,8 @@
 import React from 'react';
 import { Route } from 'react-router';
-import { SignInFormContainer, SignUpFormContainer } from '../containers/Forms';
 import ToDoListHeader from '../containers/ToDoList';
 import { ToDoListBody } from './ToDoList.jsx';
-import NoAuthHeader from './NoAuth.jsx';
+import NoAuthHeader from './NoAuthHeader.jsx';
 
 const App = () => (
   <div className="app">

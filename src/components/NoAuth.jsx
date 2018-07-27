@@ -1,34 +1,40 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Route } from 'react-router';
-import { SignInFormContainer, SignUpFormContainer } from '../containers/Forms';
+import cn from 'classnames';
 
-const NoAuth = () => (
-  <div className="auth-buttons">
-    <div className="auth-button">
-      <Link to="/signup">
-        <button type="button" className="btn">
-          Sign up
-        </button>
-      </Link>
+const NoAuth = (props) => {
+  const { withoutAuth, toggleNoAuth } = props;
+
+  const toggleButtonClassName = cn({
+    btn: true,
+    'btn-check': true,
+    'btn-toggled': withoutAuth,
+  });
+
+  return (
+    <div className="auth">
+      <div className="auth-buttons">
+        <div className="auth-button">
+          <Link to="/signup">
+            <button type="button" className="btn">
+              Sign up
+            </button>
+          </Link>
+        </div>
+        <div className="auth-button">
+          <Link to="/signin">
+            <button type="button" className="btn">
+              Sign in
+            </button>
+          </Link>
+        </div>
+      </div>
+      <div className="without-auth">
+        <button className={toggleButtonClassName} onClick={toggleNoAuth}>✓</button>
+        <div className="without-label">Without authorization</div>
+      </div>
     </div>
-    <div className="auth-button">
-      <Link to="/signin">
-        <button type="button" className="btn">
-          Sign in
-        </button>
-      </Link>
-    </div>
-  </div>
-)
+  );
+};
 
-const NoAuthHeader = () => (
-  <div className="app-header">
-    <h1>To-do list</h1>
-    <Route exact path="/" component={NoAuth} />
-    <Route path="/signin" component={SignInFormContainer} />
-    <Route path="/signup" component={SignUpFormContainer} />
-  </div>
-)
-
-export default NoAuthHeader;
+export default NoAuth;

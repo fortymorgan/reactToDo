@@ -73,6 +73,12 @@ const authError = handleActions({
   }
 }, 'none')
 
+const withoutAuth = handleActions({
+  [actions.toggleNoAuth](state) {
+    return !state;
+  },
+}, false);
+
 export default combineReducers({
   ...tasksStateReducers,
   authError,
@@ -81,6 +87,7 @@ export default combineReducers({
   input,
   filter,
   currentUser,
+  withoutAuth,
   form: formReducer,
   routing: routerReducer,
 });

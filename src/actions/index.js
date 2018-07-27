@@ -11,6 +11,8 @@ export const updateStateOnLogin = createAction('TASK_LIST_UPDATE', (items) => {
   return { items };
 });
 
+export const toggleNoAuth = createAction('NO_AUTH_TOGGLE');
+
 export const addEmptyTask = createAction('EMPTY_TASK_ADD');
 
 export const editTask = createAction('TASK_EDIT', dbId => ({ dbId }));

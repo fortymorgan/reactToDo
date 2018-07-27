@@ -49,11 +49,26 @@ h1 {
   font-size: 52px;
 }
 
+.auth {
+  width: 100%;
+}
+
 .auth-buttons {
   display: flex;
   justify-content: space-around;
   width: 100%;
   padding-top: 5px;
+}
+
+.without-auth {
+  padding-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.without-label {
+  padding-left: 10px;
 }
 
 .auth-input-group {
