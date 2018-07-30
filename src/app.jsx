@@ -10,6 +10,8 @@ import firebase from 'firebase/app';
 import reducers from './reducers';
 import 'firebase/auth';
 import 'firebase/database';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
 import App from './components/App.jsx';
 import * as actions from './actions';
 
@@ -61,6 +63,8 @@ export default () => {
       store.dispatch(push('/'));
     }
   });
+
+  library.add(faSignOutAlt);
 
   const mountNode = document.getElementById('container');
   ReactDOM.render(

@@ -1,4 +1,5 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import HeaderContainer from '../containers/Header';
 import ListItemsContainer from '../containers/ListItems';
 import FooterContainer from '../containers/Footer';
@@ -12,7 +13,7 @@ export const ToDoListHeader = (props) => {
       <div className="auth-user-signout">
         <p className="username">{currentUser}</p>
         <button type="button" className="btn" onClick={onSignOut}>
-          Sign out
+          <FontAwesomeIcon icon="sign-out-alt" />
         </button>
       </div>
     </div>
