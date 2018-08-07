@@ -2,6 +2,7 @@
 
 This app allows to keep all your tasks in one place.
 
+### Screenshots
 Desktop version:  
 <img src="https://github.com/fortymorgan/reactToDo/blob/master/screenshots/Desktop.png" alt="Desktop" title="Desktop version" />
 
@@ -34,7 +35,7 @@ npm run deploy
 ```
 
 ## How to use
-Open the [app](https://todo-list-84b73.firebaseapp.com/). Enter email and password to authentificate.
+Open the [app](https://todo-list-84b73.firebaseapp.com/). Create a new account or login with an existing one.
 
 ### Add task
 Enter a task to the field "New task" and click "Add" or press "Enter". New task will apeear in the list.
