@@ -2,6 +2,12 @@
 
 This app allows to keep all your tasks in one place.
 
+Desktop version:  
+<img src="https://fastpic.co/images/Screenshot_111b50df3a50b44df3.jpg" alt="Desktop" title="Desktop version" border="0" />
+
+Mobile version:  
+<img src="https://fastpic.co/images/Screenshot_12bac158766a1e4f3d.jpg" alt="Mobile" title="Mobile version" border="0" />
+
 ## How to install
 First you need to install [Firebase CLI](https://firebase.google.com/docs/cli/)
 ```
@@ -43,7 +49,13 @@ Click on the red cross on the right side of the task.
 To start editing, double click on tasks text. To finish editing press "Enter".
 
 ### Check all tasks
-Click on the checkbox to the left of the new task field.
+Click on the checkbox to the left of the new task field. (Doesn't show without tasks)
+
+### Clear finished tasks
+Click on "Clear finished" button on the right-bottom of app.
+
+### Filter tasks list
+Choose filter option on the bottom of app to show all tasks or only finished, or active.
 
 ## Built with
 - [React](https://github.com/facebook/react) - web framework
