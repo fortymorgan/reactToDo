@@ -3,10 +3,10 @@
 This app allows to keep all your tasks in one place.
 
 Desktop version:  
-<img src="https://fastpic.co/images/Screenshot_111b50df3a50b44df3.jpg" alt="Desktop" title="Desktop version" border="0" />
+<img src="https://github.com/fortymorgan/reactToDo/blob/master/screenshots/Desktop.png" alt="Desktop" title="Desktop version" />
 
 Mobile version:  
-<img src="https://fastpic.co/images/Screenshot_12bac158766a1e4f3d.jpg" alt="Mobile" title="Mobile version" border="0" />
+<img src="https://github.com/fortymorgan/reactToDo/blob/master/screenshots/Mobile.png" width=320 alt="Mobile" title="Mobile version" />
 
 ## How to install
 First you need to install [Firebase CLI](https://firebase.google.com/docs/cli/)
@@ -34,7 +34,7 @@ npm run deploy
 ```
 
 ## How to use
-Go to [app](https://todo-list-84b73.firebaseapp.com/). Requires authorization.
+Open the [app](https://todo-list-84b73.firebaseapp.com/). Enter email and password to authentificate.
 
 ### Add task
 Enter a task to the field "New task" and click "Add" or press "Enter". New task will apeear in the list.
