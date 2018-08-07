@@ -9,13 +9,13 @@ Desktop version:
 Mobile version:  
 <img src="https://github.com/fortymorgan/reactToDo/blob/master/screenshots/Mobile.png" width=320 alt="Mobile" title="Mobile version" />
 
-## How to install
+## How to develop
 First you need to install [Firebase CLI](https://firebase.google.com/docs/cli/)
 ```
 npm install -g firebase-tools
 ```
 
-To run project locally:
+To run the project locally:
 ```
 npm run start
 ```
