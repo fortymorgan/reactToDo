@@ -15,10 +15,15 @@ First you need to install [Firebase CLI](https://firebase.google.com/docs/cli/)
 npm install -g firebase-tools
 ```
 
-To run the project locally:
+To run the project locally you need to create `main.js` bundle with:
+```
+npm run watch
+```
+Then run the app server:
 ```
 npm run start
 ```
+Server will listen to `http://localhost:5000`.
 
 ## How to deploy
 With installed [Firebase CLI](https://firebase.google.com/docs/cli/) run:
